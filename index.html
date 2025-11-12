@@ -6,13 +6,12 @@
   <title>Tutelle — 5 points essentiels</title>
   <meta name="description" content="Statuts, processus, missions, rendus et contrôle pour tuteur familial." />
   <style>
-    /* ==== Style global ==== */
     :root{
-      --bg:#eef2ff; /* fond violet très clair */
+      --bg:#eef2ff;
       --panel:#ffffff;
-      --text:#1e1b4b; /* violet profond */
+      --text:#1e1b4b;
       --muted:#6b7280;
-      --primary:#6366f1; /* bleu-violet */
+      --primary:#6366f1;
       --border:#e0e7ff;
       --shadow:0 8px 20px rgba(99,102,241,.15);
       --radius:16px;
@@ -24,31 +23,30 @@
       font-family:"Segoe UI", system-ui, sans-serif;
       color:var(--text);
       -webkit-font-smoothing:antialiased;
-      text-align:center;
+    }
+    .wrap{
+      max-width:800px;
+      margin:0 auto;
+      padding:20px 16px 60px;
     }
     h1{
       margin-top:30px;
       font-size:clamp(24px,4vw,36px);
       letter-spacing:-0.02em;
       color:var(--primary);
+      text-align:left;
     }
     .sub{
       color:var(--muted);
       font-size:15px;
       margin-bottom:30px;
+      text-align:left;
     }
 
-    /* ==== Conteneur ==== */
-    .wrap{
-      max-width:800px;
-      margin:0 auto;
-      padding:20px 16px 60px;
-    }
-
-    /* ==== Boutons ==== */
+    /* Boutons */
     .btns{
       display:flex;
-      justify-content:center;
+      justify-content:flex-start;
       gap:10px;
       margin-bottom:20px;
       flex-wrap:wrap;
@@ -69,7 +67,7 @@
       background:#4f46e5;
     }
 
-    /* ==== Cartes ==== */
+    /* Cartes */
     details.acc{
       background:var(--panel);
       border:1px solid var(--border);
@@ -92,7 +90,7 @@
       color:var(--primary);
       display:flex;
       align-items:center;
-      justify-content:center;
+      justify-content:space-between;
       gap:8px;
       background:linear-gradient(90deg,#f5f3ff,#eef2ff);
     }
@@ -106,12 +104,12 @@
       transform:rotate(180deg);
     }
 
-    /* ==== Contenu ==== */
     .content{
       padding:20px 30px;
       color:var(--text);
       background:white;
       animation:fadeIn .3s ease;
+      text-align:left;
     }
     .content h3{
       margin:10px 0 6px;
@@ -123,8 +121,8 @@
       font-size:15px;
       margin:6px 0;
     }
-    .content ol{
-      list-style-position:inside;
+    .content ol, .content ul{
+      margin:6px 0 0 18px;
       padding:0;
     }
 
@@ -133,7 +131,6 @@
       to{opacity:1; transform:translateY(0);}
     }
 
-    /* ==== Note ==== */
     .note{
       margin-top:30px;
       font-size:14px;
@@ -151,7 +148,7 @@
     <h1>La gestion administrative en cas de tutelle</h1>
     <p class="sub">Les 5 points essentiels pour un tuteur familial</p>
 
-    <!-- 1. Statuts -->
+    <!-- 1 -->
     <details class="acc" open>
       <summary>1️⃣ Les différents statuts <svg class="chev" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
       <div class="content">
@@ -164,7 +161,7 @@
       </div>
     </details>
 
-    <!-- 2. Processus -->
+    <!-- 2 -->
     <details class="acc">
       <summary>2️⃣ Le processus de mise en place <svg class="chev" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
       <div class="content">
@@ -177,7 +174,7 @@
       </div>
     </details>
 
-    <!-- 3. Missions -->
+    <!-- 3 -->
     <details class="acc">
       <summary>3️⃣ Le rôle du tuteur <svg class="chev" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
       <div class="content">
@@ -191,7 +188,7 @@
       </div>
     </details>
 
-    <!-- 4. Rendus -->
+    <!-- 4 -->
     <details class="acc">
       <summary>4️⃣ Les rendus & comptes <svg class="chev" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
       <div class="content">
@@ -204,7 +201,7 @@
       </div>
     </details>
 
-    <!-- 5. Contrôle -->
+    <!-- 5 -->
     <details class="acc">
       <summary>5️⃣ Le contrôle de la tutelle <svg class="chev" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
       <div class="content">
@@ -221,7 +218,6 @@
   </div>
 
   <script>
-    // Boutons Tout ouvrir / Tout fermer
     const all = () => Array.from(document.querySelectorAll("details.acc"));
     document.getElementById("openAll").onclick = () => all().forEach(d => d.open = true);
     document.getElementById("closeAll").onclick = () => all().forEach(d => d.open = false);

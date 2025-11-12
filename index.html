@@ -3,272 +3,253 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Gestion Administrative de Tutelle – Guide pour Tuteur Familial</title>
-  <meta name="description" content="Statuts, processus, missions du tuteur, rendus et contrôle." />
-  <link rel="icon" href="data:," />
+  <title>Tutelle — 5 points essentiels</title>
+  <meta name="description" content="Statuts, processus, missions, rendus et contrôle pour tuteur familial." />
   <style>
+    /* ===== Design tokens (clair & propre) ===== */
     :root{
-      --background:#0a0a0a;        /* dark default (joli rendu) */
-      --foreground:#fafafa;
-      --muted:#1a1a1a;
-      --muted-foreground:#a1a1aa;
-      --card:#0f0f0f;
-      --border:#262626;
-      --primary:#4f46e5;           /* indigo */
+      --bg:#f7f9fc;          /* fond très léger */
+      --panel:#ffffff;       /* cartes */
+      --text:#0f172a;        /* slate-900 */
+      --muted:#64748b;       /* slate-500 */
+      --primary:#2563eb;     /* bleu */
+      --primary-contrast:#eef2ff;
+      --border:#e5e7eb;
+      --ring:#93c5fd;
+      --radius:14px;
+      --shadow:0 6px 24px rgba(15,23,42,.06), 0 2px 6px rgba(15,23,42,.05);
     }
-    @media (prefers-color-scheme: light){
-      :root{
-        --background:#f9fafb;
-        --foreground:#0b0b0b;
-        --muted:#f1f5f9;
-        --muted-foreground:#555;
-        --card:#ffffff;
-        --border:#e5e7eb;
-        --primary:#4f46e5;
-      }
-    }
+
     *{box-sizing:border-box}
-    html,body{height:100%}
     body{
-      margin:0;
-      font-family:ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      background:var(--background);
-      color:var(--foreground);
-      -webkit-font-smoothing:antialiased;
-      line-height:1.6;
-    }
-    .container{
-      max-width:1100px;
-      margin:0 auto;
-      padding:48px 16px 72px;
-    }
-    .title-wrap{
-      text-align:center;
-      margin-bottom:40px;
-    }
-    h1{
-      margin:0 0 8px;
-      font-size:clamp(28px, 4vw, 40px);
-      line-height:1.15;
-      letter-spacing:-0.01em;
-    }
-    .subtitle{
-      color:var(--muted-foreground);
-      font-size:clamp(16px, 2.5vw, 20px);
+      margin:0; background:
+        radial-gradient(900px 500px at 10% -10%, rgba(37,99,235,.08), transparent 60%),
+        radial-gradient(700px 400px at 90% -20%, rgba(99,102,241,.08), transparent 60%),
+        var(--bg);
+      color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      -webkit-font-smoothing:antialiased; line-height:1.6;
     }
 
-    /* Cards */
-    .stack{display:grid; gap:18px}
-    .card{
-      background:var(--card);
+    /* Conteneur & header */
+    .wrap{max-width:860px; margin:0 auto; padding:28px 16px 64px}
+    .hero{
+      display:flex; align-items:flex-end; justify-content:space-between; gap:12px; flex-wrap:wrap;
+      margin:0 0 18px;
+    }
+    .title{margin:0; font-weight:800; letter-spacing:-.02em; font-size:clamp(22px,3.2vw,30px)}
+    .subtitle{margin:6px 0 0; color:var(--muted); font-size:14.5px}
+    .actions{display:flex; gap:10px; flex-wrap:wrap}
+    .btn{
+      border:1px solid var(--border); background:var(--panel); color:var(--text);
+      padding:9px 12px; border-radius:10px; cursor:pointer; font-size:14px;
+      box-shadow:var(--shadow); transition:transform .15s ease, box-shadow .15s ease, border-color .2s ease;
+    }
+    .btn:hover{ transform:translateY(-1px); box-shadow:0 10px 30px rgba(15,23,42,.08); border-color:#d1d5db }
+    .btn:active{ transform:translateY(0) }
+
+    /* Accordéons en colonne */
+    details.acc{
+      background:var(--panel);
       border:1px solid var(--border);
-      border-radius:16px;
-      overflow:hidden;
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      margin:12px 0; overflow:hidden;
+      transition:border-color .25s ease, box-shadow .25s ease, transform .18s ease;
     }
-    .card-header{
-      padding:18px 20px 0;
-    }
-    .head-flex{
-      display:flex; align-items:center; gap:12px;
-    }
-    .icon-badge{
-      display:inline-flex; align-items:center; justify-content:center;
-      width:40px; height:40px; border-radius:10px;
-      background:color-mix(in oklab, var(--primary) 15%, transparent);
-    }
-    .icon{width:24px; height:24px; stroke:var(--primary)}
-    .card-title{margin:0; font-size:20px; font-weight:700}
-    .card-desc{margin:2px 0 0; color:var(--muted-foreground)}
-    .card-content{padding:14px 20px 20px}
-    .card-content h3{margin:14px 0 6px; font-size:16px}
-    .card-content p{margin:0; color:var(--muted-foreground)}
-    .card-content ol{margin:6px 0 0 20px; padding:0}
-    .note{
-      margin-top:28px; padding:16px 18px; border-radius:12px;
-      background:color-mix(in oklab, var(--muted) 85%, transparent);
-      border:1px solid var(--border);
-      color:var(--muted-foreground);
-      font-size:14px;
+    details.acc:hover{ transform:translateY(-1px); box-shadow:0 14px 36px rgba(15,23,42,.08) }
+    details.acc[open]{ border-color:#dbeafe } /* bleu pâle quand ouvert */
+
+    /* Bande d’accent à gauche quand ouvert */
+    details.acc[open]::before{
+      content:""; position:absolute; display:block; width:4px; height:100%;
+      background:linear-gradient(180deg, #60a5fa, #2563eb);
+      border-radius:0 6px 6px 0; transform:translateX(-1px);
     }
 
-    /* Small helpers */
-    .list-tight li{margin:8px 0}
-    .muted{color:var(--muted-foreground)}
+    /* Position relative pour le ::before */
+    details.acc{ position:relative }
+
+    summary{
+      list-style:none; cursor:pointer; user-select:none;
+      display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:12px;
+      padding:16px 18px;
+    }
+    summary::-webkit-details-marker{display:none}
+
+    /* Pastille numéro + icône */
+    .chip{
+      display:inline-flex; align-items:center; gap:8px; padding:6px 10px;
+      border-radius:999px; background:var(--primary-contrast);
+      color:var(--primary); font-weight:700; font-size:12px; border:1px solid #e0e7ff;
+    }
+    .chip .ic{ width:16px; height:16px; stroke:var(--primary); stroke-width:2; fill:none }
+
+    .head{display:flex; flex-direction:column; gap:4px; min-width:0}
+    .ttl{font-weight:750; font-size:16px; letter-spacing:-.01em}
+    .desc{color:var(--muted); font-size:13.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+
+    .chev{ width:18px; height:18px; stroke:#475569; transition:transform .18s ease }
+    details[open] .chev{ transform:rotate(180deg) }
+
+    .bar{height:1px; background:linear-gradient(90deg, transparent, var(--border), transparent)}
+    .content{ padding:14px 18px 18px; color:#334155; font-size:15px }
+    .content h3{ margin:10px 0 6px; font-size:15px; color:#0f172a }
+    .content p{ margin:0 0 8px }
+    .content ol{ margin:6px 0 0 18px }
+
+    /* Petites animations d’apparition pour le contenu */
+    details.acc[open] .content{ animation:fadeIn .25s ease both }
+    @keyframes fadeIn{ from{opacity:0; transform:translateY(-2px)} to{opacity:1; transform:translateY(0)} }
+
+    /* Accessibilité */
+    :focus-visible{ outline:3px solid var(--ring); outline-offset:3px; border-radius:10px }
+    @media (prefers-reduced-motion: reduce){ *{animation:none!important; transition:none!important} }
   </style>
 </head>
 <body>
-  <main>
-    <div class="container">
-      <div class="title-wrap">
-        <h1>La gestion administrative dans un cas de tutelle</h1>
-        <p class="subtitle">Guide pour le tuteur familial</p>
+  <div class="wrap">
+    <div class="hero">
+      <div>
+        <h1 class="title">Tutelle — 5 points essentiels</h1>
+        <p class="subtitle">Gestion administrative pour un tuteur familial</p>
       </div>
-
-      <div class="stack">
-
-        <!-- 1. Les différents statuts -->
-        <section class="card">
-          <div class="card-header">
-            <div class="head-flex">
-              <span class="icon-badge" aria-hidden="true">
-                <!-- Scale icon (lucide) -->
-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M3 7h18"/>
-                  <path d="M6 7l-3 7a6 6 0 0 0 12 0L12 7"/>
-                  <path d="M18 7l-3 7a6 6 0 0 0 12 0l-3-7"/>
-                  <path d="M12 3v4"/>
-                </svg>
-              </span>
-              <div>
-                <h2 class="card-title">Les différents statuts</h2>
-                <p class="card-desc">Tutelle, curatelle et autres mesures de protection</p>
-              </div>
-            </div>
-          </div>
-          <div class="card-content">
-            <h3>Tutelle</h3>
-            <p>Mesure de protection la plus complète pour les personnes dans l'incapacité d'exprimer leur volonté. Le tuteur représente la personne protégée dans tous les actes de la vie civile.</p>
-            <h3>Curatelle</h3>
-            <p>Mesure d'assistance pour les personnes ayant besoin d'être conseillées ou contrôlées dans les actes importants. La personne conserve son autonomie pour les actes courants.</p>
-            <h3>Sauvegarde de justice</h3>
-            <p>Mesure temporaire et de courte durée pour protéger une personne qui a besoin d'une représentation rapide dans certains actes.</p>
-          </div>
-        </section>
-
-        <!-- 2. Processus de mise en place -->
-        <section class="card">
-          <div class="card-header">
-            <div class="head-flex">
-              <span class="icon-badge" aria-hidden="true">
-                <!-- FileText icon -->
-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                  <path d="M14 2v6h6"/>
-                  <path d="M16 13H8"/>
-                  <path d="M16 17H8"/>
-                  <path d="M10 9H8"/>
-                </svg>
-              </span>
-              <div>
-                <h2 class="card-title">Le processus de mise en place</h2>
-                <p class="card-desc">Les étapes pour établir une mesure de protection</p>
-              </div>
-            </div>
-          </div>
-          <div class="card-content">
-            <ol class="list-tight">
-              <li><strong>Demande au juge des tutelles</strong>
-                <p class="muted">Par la personne, un membre de la famille, un proche, ou le procureur de la République.</p>
-              </li>
-              <li><strong>Certificat médical</strong>
-                <p class="muted">Rédigé par un médecin inscrit sur la liste du procureur, décrivant l'altération des facultés.</p>
-              </li>
-              <li><strong>Audition de la personne</strong>
-                <p class="muted">Le juge entend la personne à protéger, sauf impossibilité médicale attestée.</p>
-              </li>
-              <li><strong>Décision du juge</strong>
-                <p class="muted">Prononcé de la mesure adaptée et désignation du tuteur ou curateur.</p>
-              </li>
-            </ol>
-          </div>
-        </section>
-
-        <!-- 3. Missions du tuteur -->
-        <section class="card">
-          <div class="card-header">
-            <div class="head-flex">
-              <span class="icon-badge" aria-hidden="true">
-                <!-- UserCheck icon -->
-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M20 21a8 8 0 1 0-16 0"/>
-                  <circle cx="12" cy="7" r="4"/>
-                  <path d="m16 11 2 2 4-4"/>
-                </svg>
-              </span>
-              <div>
-                <h2 class="card-title">Les missions du tuteur</h2>
-                <p class="card-desc">Responsabilités et obligations</p>
-              </div>
-            </div>
-          </div>
-          <div class="card-content">
-            <h3>Gestion des biens</h3>
-            <p>Actes d'administration courante et autorisation du juge pour les actes de disposition (vente, donation, emprunt).</p>
-            <h3>Protection de la personne</h3>
-            <p>Veiller au bien-être, à la santé et aux conditions de vie. Décisions relatives au logement et aux soins.</p>
-            <h3>Gestion administrative</h3>
-            <p>Démarches, paiement des factures, gestion des comptes bancaires, tenue d'une comptabilité précise.</p>
-            <h3>Respect de la personne</h3>
-            <p>Consulter la personne protégée autant que possible et respecter ses souhaits compatibles avec son intérêt.</p>
-          </div>
-        </section>
-
-        <!-- 4. Rendus -->
-        <section class="card">
-          <div class="card-header">
-            <div class="head-flex">
-              <span class="icon-badge" aria-hidden="true">
-                <!-- ClipboardList icon -->
-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="8" y="2" width="8" height="4" rx="1"/>
-                  <path d="M9 4H8a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1"/>
-                  <path d="M9 10h6"/>
-                  <path d="M9 14h6"/>
-                  <path d="M9 18h6"/>
-                </svg>
-              </span>
-              <div>
-                <h2 class="card-title">Les rendus obligatoires</h2>
-                <p class="card-desc">Documents à fournir au juge des tutelles</p>
-              </div>
-            </div>
-          </div>
-          <div class="card-content">
-            <h3>Inventaire initial</h3>
-            <p>À établir dans les 3 mois suivant la nomination, listant tous les biens mobiliers et immobiliers.</p>
-            <h3>Compte de gestion annuel</h3>
-            <p>Récapitulatif des recettes et dépenses avec justificatifs, à remettre chaque année au greffe.</p>
-            <h3>Compte de fin de gestion</h3>
-            <p>Bilan définitif à la fin de la mesure (décès, mainlevée, changement de tuteur).</p>
-          </div>
-        </section>
-
-        <!-- 5. Contrôle -->
-        <section class="card">
-          <div class="card-header">
-            <div class="head-flex">
-              <span class="icon-badge" aria-hidden="true">
-                <!-- Shield icon -->
-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M12 22c6-2 8-5.5 8-10V6l-8-4-8 4v6c0 4.5 2 8 8 10z"/>
-                  <path d="M9 12l2 2 4-4"/>
-                </svg>
-              </span>
-              <div>
-                <h2 class="card-title">Le contrôle de la tutelle</h2>
-                <p class="card-desc">Surveillance et vérifications</p>
-              </div>
-            </div>
-          </div>
-          <div class="card-content">
-            <h3>Contrôle par le juge</h3>
-            <p>Vérification des comptes annuels, demandes d’explications ou de pièces complémentaires.</p>
-            <h3>Rôle du greffe</h3>
-            <p>Suivi administratif de la mesure et contrôle de la régularité des documents transmis.</p>
-            <h3>Subrogé tuteur</h3>
-            <p>Peut surveiller les actes du tuteur et contresigner certains actes importants.</p>
-            <h3>Sanctions possibles</h3>
-            <p>Remplacement du tuteur, réparation financière, voire poursuites pénales en cas de manquement grave.</p>
-          </div>
-        </section>
-
-      </div>
-
-      <div class="note">
-        <strong>Note importante :</strong> Ce guide présente les principes généraux de la tutelle familiale.
-        Pour des situations spécifiques, consulte un juge des tutelles ou un avocat spécialisé.
+      <div class="actions">
+        <button class="btn" id="openAll" type="button">Tout ouvrir</button>
+        <button class="btn" id="closeAll" type="button">Tout fermer</button>
       </div>
     </div>
-  </main>
+
+    <!-- 1. Statuts -->
+    <details class="acc" open id="statuts">
+      <summary>
+        <span class="chip">
+          <svg class="ic" viewBox="0 0 24 24"><path d="M3 7h18"/><path d="M6 7l-3 7a6 6 0 0 0 12 0L12 7"/><path d="M18 7l-3 7a6 6 0 0 0 12 0l-3-7"/><path d="M12 3v4"/></svg>
+          1
+        </span>
+        <div class="head">
+          <span class="ttl">Les différents statuts</span>
+          <span class="desc">Tutelle, curatelle, sauvegarde de justice</span>
+        </div>
+        <svg class="chev" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </summary>
+      <div class="bar" aria-hidden="true"></div>
+      <div class="content">
+        <h3>Tutelle</h3>
+        <p>Mesure la plus complète : le tuteur représente la personne dans les actes de la vie civile.</p>
+        <h3>Curatelle</h3>
+        <p>Assistance/contrôle pour les actes importants ; autonomie conservée pour les actes courants.</p>
+        <h3>Sauvegarde de justice</h3>
+        <p>Mesure temporaire pour une protection rapide.</p>
+      </div>
+    </details>
+
+    <!-- 2. Processus -->
+    <details class="acc" id="processus">
+      <summary>
+        <span class="chip">
+          <svg class="ic" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>
+          2
+        </span>
+        <div class="head">
+          <span class="ttl">Processus de mise en place</span>
+          <span class="desc">Étapes officielles</span>
+        </div>
+        <svg class="chev" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </summary>
+      <div class="bar"></div>
+      <div class="content">
+        <ol>
+          <li><strong>Demande au juge des tutelles</strong> (personne, proche, procureur)</li>
+          <li><strong>Certificat médical</strong> (médecin inscrit sur liste du procureur)</li>
+          <li><strong>Audition</strong> (sauf impossibilité médicale)</li>
+          <li><strong>Décision</strong> (mesure adaptée & désignation du tuteur/curateur)</li>
+        </ol>
+      </div>
+    </details>
+
+    <!-- 3. Missions -->
+    <details class="acc" id="missions">
+      <summary>
+        <span class="chip">
+          <svg class="ic" viewBox="0 0 24 24"><path d="M20 21a8 8 0 1 0-16 0"/><circle cx="12" cy="7" r="4"/><path d="m16 11 2 2 4-4"/></svg>
+          3
+        </span>
+        <div class="head">
+          <span class="ttl">Ce que doit faire le tuteur</span>
+          <span class="desc">Missions & obligations</span>
+        </div>
+        <svg class="chev" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </summary>
+      <div class="bar"></div>
+      <div class="content">
+        <h3>Gestion des biens</h3>
+        <p>Administration courante ; autorisation du juge pour les actes de disposition (vente, donation…).</p>
+        <h3>Protection de la personne</h3>
+        <p>Bien-être, santé, logement, décisions de soins.</p>
+        <h3>Gestion administrative</h3>
+        <p>Démarches, factures, comptes, tenue d’une comptabilité fiable.</p>
+        <h3>Respect de la personne</h3>
+        <p>Consulter autant que possible et respecter les souhaits compatibles avec l’intérêt de la personne.</p>
+      </div>
+    </details>
+
+    <!-- 4. Rendus -->
+    <details class="acc" id="rendus">
+      <summary>
+        <span class="chip">
+          <svg class="ic" viewBox="0 0 24 24"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M9 4H8a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1"/><path d="M9 10h6"/><path d="M9 14h6"/><path d="M9 18h6"/></svg>
+          4
+        </span>
+        <div class="head">
+          <span class="ttl">Rendus & comptes</span>
+          <span class="desc">Documents obligatoires</span>
+        </div>
+        <svg class="chev" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </summary>
+      <div class="bar"></div>
+      <div class="content">
+        <h3>Inventaire initial</h3>
+        <p>Dans les 3 mois : biens mobiliers et immobiliers.</p>
+        <h3>Compte de gestion annuel</h3>
+        <p>Recettes/dépenses + justificatifs, remis chaque année au greffe.</p>
+        <h3>Compte de fin de gestion</h3>
+        <p>Bilan final à la fin de la mesure (décès, mainlevée, changement de tuteur).</p>
+      </div>
+    </details>
+
+    <!-- 5. Contrôle -->
+    <details class="acc" id="controle">
+      <summary>
+        <span class="chip">
+          <svg class="ic" viewBox="0 0 24 24"><path d="M12 22c6-2 8-5.5 8-10V6l-8-4-8 4v6c0 4.5 2 8 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+          5
+        </span>
+        <div class="head">
+          <span class="ttl">Le contrôle de la tutelle</span>
+          <span class="desc">Surveillance & sanctions</span>
+        </div>
+        <svg class="chev" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </summary>
+      <div class="bar"></div>
+      <div class="content">
+        <h3>Contrôle par le juge</h3>
+        <p>Vérifie les comptes, peut demander pièces et explications.</p>
+        <h3>Rôle du greffe</h3>
+        <p>Suivi administratif et contrôle de la régularité des documents.</p>
+        <h3>Subrogé tuteur</h3>
+        <p>Surveille certains actes et contresigne si nécessaire.</p>
+        <h3>Sanctions</h3>
+        <p>Remplacement, réparation financière, voire poursuites pénales en cas de manquement grave.</p>
+      </div>
+    </details>
+  </div>
+
+  <script>
+    // Boutons Tout ouvrir / Tout fermer
+    const cards = () => Array.from(document.querySelectorAll('details.acc'));
+    document.getElementById('openAll').addEventListener('click', () => cards().forEach(d => d.open = true));
+    document.getElementById('closeAll').addEventListener('click', () => cards().forEach(d => d.open = false));
+  </script>
 </body>
 </html>

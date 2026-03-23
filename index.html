@@ -3,211 +3,679 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tutelle Simplifiée</title>
+<title>TutoCare</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
+:root {
+    --indigo: #4f46e5;
+    --indigo-light: #e0e7ff;
+    --indigo-dark: #3730a3;
+    --red: #ef4444;
+    --amber: #f59e0b;
+    --green: #22c55e;
+    --surface: #ffffff;
+    --bg: #f1f5f9;
+    --text: #1e293b;
+    --muted: #64748b;
+    --border: #e2e8f0;
+    --shadow: 0 4px 24px rgba(79,70,229,0.07);
+    --radius: 16px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
 body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: #f6f9fc;
-    color: #1a1a1a;
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-/* NAVBAR */
+/* ── NAVBAR ── */
 .navbar {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    height: 64px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 15px 40px;
-    background: white;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-}
-
-.navbar h2 {
-    color: #2E86C1;
-}
-
-.navbar ul {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-}
-
-.navbar li {
-    cursor: pointer;
-    font-weight: 500;
-}
-
-.navbar li:hover {
-    color: #2E86C1;
-}
-
-/* HERO */
-.hero {
-    padding: 60px 20px;
-    text-align: center;
-}
-
-.hero h1 {
-    font-size: 2.5em;
-    margin-bottom: 10px;
-}
-
-.hero p {
-    color: #666;
-}
-
-/* SECTION */
-.section {
-    max-width: 900px;
-    margin: auto;
-    padding: 40px 20px;
-}
-
-/* CHECKLIST */
-.accordion {
-    background: white;
-    border-radius: 12px;
-    margin-bottom: 15px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-    overflow: hidden;
-    transition: transform 0.2s;
-}
-
-.accordion:hover {
-    transform: translateY(-2px);
-}
-
-.accordion-header {
-    padding: 18px;
-    font-weight: 600;
-    cursor: pointer;
-    display: flex;
     justify-content: space-between;
-    background: #eef5fb;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 1px 12px rgba(0,0,0,0.06);
 }
 
-.accordion-content {
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+
+.nav-logo {
+    width: 36px;
+    height: 36px;
+    background: var(--indigo);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    color: white;
+    font-size: 1em;
+    letter-spacing: -0.5px;
+}
+
+.nav-brand-name {
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    font-size: 1.15em;
+    color: var(--text);
+}
+
+.nav-brand-name span {
+    color: var(--indigo);
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 0.9em;
+    font-weight: 500;
+    padding: 8px 14px;
+    border-radius: 10px;
+    transition: background 0.18s, color 0.18s;
+}
+
+.nav-links a:hover {
+    background: var(--indigo-light);
+    color: var(--indigo);
+}
+
+.nav-links a.active {
+    background: var(--indigo-light);
+    color: var(--indigo);
+    font-weight: 600;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.nav-avatar {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, #c7d2fe, #a5b4fc);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: var(--indigo-dark);
+    font-size: 0.85em;
+    cursor: pointer;
+    border: 2px solid var(--indigo-light);
+}
+
+/* ── LAYOUT ── */
+.container {
+    display: flex;
+    gap: 24px;
+    padding: 32px 40px;
+    flex: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* ── HEADER ── */
+.page-header {
+    margin-bottom: 24px;
+}
+
+.page-header h2 {
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    font-size: 1.6em;
+    color: var(--text);
+}
+
+.page-header p {
+    color: var(--muted);
+    font-size: 0.9em;
+    margin-top: 4px;
+}
+
+/* ── LEFT ── */
+.left { flex: 2; }
+
+/* ── TASK ── */
+.task {
+    background: var(--surface);
+    border-radius: var(--radius);
+    margin-bottom: 14px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+}
+
+.task:hover {
+    box-shadow: 0 8px 30px rgba(79,70,229,0.1);
+}
+
+.task-header {
+    padding: 16px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.task-checkbox {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--indigo);
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.task-title {
+    flex: 1;
+    font-weight: 500;
+    font-size: 0.95em;
+    color: var(--text);
+}
+
+.badge {
+    font-size: 0.72em;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    color: white;
+    letter-spacing: 0.3px;
+}
+
+.urgent { background: var(--red); }
+.soon   { background: var(--amber); }
+
+.chevron {
+    color: var(--muted);
+    font-size: 0.85em;
+    transition: transform 0.25s;
+    flex-shrink: 0;
+}
+
+.task.open .chevron { transform: rotate(180deg); }
+
+/* ── TASK CONTENT ── */
+.task-content {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.35s ease;
-    padding: 0 18px;
 }
 
-.accordion-content p {
-    margin: 10px 0;
+.task-body {
+    padding: 0 18px 18px;
+    border-top: 1px solid var(--border);
 }
 
-.video-link {
-    display: inline-block;
+.task-description {
+    font-size: 0.88em;
+    color: var(--muted);
+    line-height: 1.6;
+    margin: 12px 0;
+}
+
+/* ── VIDEO PLACEHOLDER ── */
+.video-wrapper {
+    border-radius: 10px;
+    overflow: hidden;
+    background: #1e1b4b;
+    position: relative;
+    aspect-ratio: 16/9;
     margin-top: 10px;
-    color: #2E86C1;
-    text-decoration: none;
-    font-size: 0.9em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    cursor: pointer;
+    border: 1px solid #312e81;
 }
 
-.video-link:hover {
-    text-decoration: underline;
+.video-wrapper::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 30% 40%, rgba(99,102,241,0.3), transparent 60%);
 }
 
-/* FOOTER */
+.video-icon {
+    width: 52px;
+    height: 52px;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(4px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3em;
+    position: relative;
+    z-index: 1;
+    border: 1.5px solid rgba(255,255,255,0.2);
+    transition: background 0.2s, transform 0.2s;
+}
+
+.video-wrapper:hover .video-icon {
+    background: rgba(255,255,255,0.25);
+    transform: scale(1.08);
+}
+
+.video-label {
+    font-size: 0.8em;
+    color: rgba(255,255,255,0.6);
+    position: relative;
+    z-index: 1;
+}
+
+iframe.video-frame {
+    width: 100%;
+    height: 100%;
+    border: none;
+    position: absolute;
+    inset: 0;
+    border-radius: 10px;
+}
+
+/* ── RIGHT ── */
+.right { flex: 1; display: flex; flex-direction: column; gap: 16px; }
+
+.card {
+    background: var(--surface);
+    padding: 24px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    text-align: center;
+}
+
+.card h3 {
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    font-size: 1em;
+    margin-bottom: 18px;
+    color: var(--text);
+}
+
+/* DONUT */
+.chart-container {
+    position: relative;
+    width: 160px;
+    margin: 0 auto 16px;
+}
+
+.chart-container svg {
+    transform: rotate(-90deg);
+    width: 160px;
+    height: 160px;
+}
+
+circle { fill: none; stroke-width: 12; }
+.bg       { stroke: var(--border); }
+.progress { stroke: var(--indigo); stroke-linecap: round; transition: stroke-dashoffset 0.5s ease, stroke 0.4s; }
+
+.center-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Sora', sans-serif;
+    font-size: 1.5em;
+    font-weight: 700;
+    color: var(--text);
+}
+
+/* SUGGESTION */
+.suggestion-box {
+    background: var(--indigo-light);
+    border-radius: 10px;
+    padding: 12px 14px;
+    text-align: left;
+    font-size: 0.83em;
+    color: var(--indigo-dark);
+    line-height: 1.5;
+    margin-bottom: 14px;
+}
+
+.suggestion-box strong {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 2px;
+    font-size: 0.85em;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--indigo);
+}
+
+/* NOTIF */
+.notification {
+    background: linear-gradient(135deg, var(--indigo), var(--indigo-dark));
+    color: white;
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 0.85em;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+/* STATS ROW */
+.stats-row {
+    display: flex;
+    gap: 10px;
+}
+
+.stat {
+    flex: 1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 10px;
+    text-align: center;
+}
+
+.stat-number {
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    font-size: 1.5em;
+    color: var(--text);
+}
+
+.stat-label {
+    font-size: 0.75em;
+    color: var(--muted);
+    margin-top: 3px;
+}
+
+/* ── FOOTER ── */
 footer {
     text-align: center;
     padding: 20px;
-    color: #777;
+    font-size: 0.82em;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    background: white;
 }
 </style>
 </head>
-
 <body>
 
 <!-- NAVBAR -->
-<div class="navbar">
-    <h2>TutoCare</h2>
-    <ul>
-        <li>Tableau de bord</li>
-        <li>Qui sommes-nous</li>
-    </ul>
+<nav class="navbar">
+    <a class="nav-brand" href="#">
+        <div class="nav-logo">TC</div>
+        <span class="nav-brand-name">Tuto<span>Care</span></span>
+    </a>
+
+    <div class="nav-links">
+        <a href="#" class="active">Dashboard</a>
+        <a href="#">Mes documents</a>
+        <a href="#">Aide</a>
+        <a href="#">Qui sommes-nous</a>
+    </div>
+
+    <div class="nav-right">
+        <div class="nav-avatar">MR</div>
+    </div>
+</nav>
+
+<!-- MAIN -->
+<div class="container">
+
+    <!-- LEFT -->
+    <div class="left">
+
+        <div class="page-header">
+            <h2>Mes démarches</h2>
+            <p>Suivez et complétez vos démarches administratives étape par étape.</p>
+        </div>
+
+        <!-- TASK 1 -->
+        <div class="task">
+            <div class="task-header">
+                <input class="task-checkbox" type="checkbox">
+                <span class="task-title">Déclarer CAF</span>
+                <span class="badge urgent">Urgent</span>
+                <span class="chevron">▼</span>
+            </div>
+            <div class="task-content">
+                <div class="task-body">
+                    <p class="task-description">
+                        La déclaration trimestrielle CAF permet de mettre à jour vos ressources et de maintenir vos droits aux aides (APL, RSA…). 
+                        Elle doit être effectuée tous les 3 mois. Munissez-vous de vos bulletins de salaire ou relevés Pôle Emploi avant de commencer.
+                    </p>
+                    <div class="video-wrapper" data-video-id="kMsBdCPCi3Q">
+                        <div class="video-icon">▶</div>
+                        <span class="video-label">Tutoriel vidéo — Cliquez pour lancer</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TASK 2 -->
+        <div class="task">
+            <div class="task-header">
+                <input class="task-checkbox" type="checkbox">
+                <span class="task-title">Payer factures</span>
+                <span class="badge soon">Bientôt</span>
+                <span class="chevron">▼</span>
+            </div>
+            <div class="task-content">
+                <div class="task-body">
+                    <p class="task-description">
+                        Réglez vos factures d'énergie, de téléphone ou d'eau avant la date d'échéance pour éviter les pénalités. 
+                        Vous pouvez payer en ligne via le site de chaque prestataire ou utiliser un virement bancaire depuis votre espace client.
+                    </p>
+                    <div class="video-wrapper" data-video-id="kMsBdCPCi3Q">
+                        <div class="video-icon">▶</div>
+                        <span class="video-label">Tutoriel vidéo — Cliquez pour lancer</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TASK 3 -->
+        <div class="task">
+            <div class="task-header">
+                <input class="task-checkbox" type="checkbox">
+                <span class="task-title">Compte rendu médical</span>
+                <span class="chevron">▼</span>
+            </div>
+            <div class="task-content">
+                <div class="task-body">
+                    <p class="task-description">
+                        Transmettez le compte rendu de la dernière consultation à votre médecin traitant ou à votre mutuelle. 
+                        Ce document peut être nécessaire pour le suivi de votre dossier de santé et le remboursement de certains soins.
+                    </p>
+                    <div class="video-wrapper" data-video-id="kMsBdCPCi3Q">
+                        <div class="video-icon">▶</div>
+                        <span class="video-label">Tutoriel vidéo — Cliquez pour lancer</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TASK 4 -->
+        <div class="task">
+            <div class="task-header">
+                <input class="task-checkbox" type="checkbox">
+                <span class="task-title">Renouveler MDPH</span>
+                <span class="chevron">▼</span>
+            </div>
+            <div class="task-content">
+                <div class="task-body">
+                    <p class="task-description">
+                        Le dossier MDPH (Maison Départementale des Personnes Handicapées) doit être renouvelé périodiquement pour continuer à bénéficier 
+                        de vos droits (AAH, PCH, carte mobilité…). Rassemblez certificat médical, justificatif de domicile et formulaire Cerfa avant de déposer votre dossier.
+                    </p>
+                    <div class="video-wrapper" data-video-id="kMsBdCPCi3Q">
+                        <div class="video-icon">▶</div>
+                        <span class="video-label">Tutoriel vidéo — Cliquez pour lancer</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TASK 5 -->
+        <div class="task">
+            <div class="task-header">
+                <input class="task-checkbox" type="checkbox">
+                <span class="task-title">Remboursements santé</span>
+                <span class="chevron">▼</span>
+            </div>
+            <div class="task-content">
+                <div class="task-body">
+                    <p class="task-description">
+                        Vérifiez l'état de vos remboursements Sécurité Sociale et mutuelle depuis votre espace Ameli. 
+                        En cas d'absence de remboursement sous 10 jours, pensez à vérifier que votre médecin est bien en secteur conventionné et que votre feuille de soins a été correctement traitée.
+                    </p>
+                    <div class="video-wrapper" data-video-id="kMsBdCPCi3Q">
+                        <div class="video-icon">▶</div>
+                        <span class="video-label">Tutoriel vidéo — Cliquez pour lancer</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- RIGHT -->
+    <div class="right">
+
+        <div class="stats-row">
+            <div class="stat">
+                <div class="stat-number" id="count-done">0</div>
+                <div class="stat-label">Complétées</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number" id="count-left">5</div>
+                <div class="stat-label">Restantes</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Progression globale</h3>
+
+            <div class="chart-container">
+                <svg viewBox="0 0 100 100">
+                    <circle class="bg" cx="50" cy="50" r="40"></circle>
+                    <circle class="progress" cx="50" cy="50" r="40"
+                        stroke-dasharray="251"
+                        stroke-dashoffset="251"></circle>
+                </svg>
+                <div class="center-text" id="percent">0%</div>
+            </div>
+
+            <div class="suggestion-box">
+                <strong>Prochaine étape</strong>
+                <span id="suggestion">Déclarer CAF</span>
+            </div>
+
+            <div class="notification" id="notif">
+                Il vous reste 5 tâches à compléter
+            </div>
+        </div>
+
+    </div>
+
 </div>
 
-<!-- HERO -->
-<section class="hero">
-    <h1>Gérer une tutelle n’a jamais été aussi simple</h1>
-    <p>Un accompagnement clair pour les tuteurs familiaux</p>
-</section>
-
-<!-- CHECKLIST -->
-<section class="section">
-    <h2>Checklist des démarches essentielles</h2>
-
-    <div class="accordion">
-        <div class="accordion-header">Déclarer les ressources à la CAF</div>
-        <div class="accordion-content">
-            <p>Déclarer les revenus tous les trimestres pour maintenir les droits aux aides.</p>
-            <p>Étapes : créer un compte CAF → saisir les revenus → vérifier la validation.</p>
-            <a class="video-link" href="https://www.youtube.com/results?search_query=déclaration+CAF+tutoriel" target="_blank">🎥 Voir un tutoriel</a>
-        </div>
-    </div>
-
-    <div class="accordion">
-        <div class="accordion-header">Payer les factures mensuelles</div>
-        <div class="accordion-content">
-            <p>Assurer le paiement du loyer, énergie et assurances pour éviter les pénalités.</p>
-            <p>Mettre en place des prélèvements automatiques si possible.</p>
-            <a class="video-link" href="https://www.youtube.com/results?search_query=gérer+factures+budget" target="_blank">🎥 Voir un tutoriel</a>
-        </div>
-    </div>
-
-    <div class="accordion">
-        <div class="accordion-header">Faire le compte rendu de gestion annuel</div>
-        <div class="accordion-content">
-            <p>Document obligatoire à transmettre au juge avec toutes les dépenses et recettes.</p>
-            <p>Inclure justificatifs et relevés bancaires.</p>
-            <a class="video-link" href="https://www.youtube.com/results?search_query=compte+rendu+gestion+tutelle" target="_blank">🎥 Voir un tutoriel</a>
-        </div>
-    </div>
-
-    <div class="accordion">
-        <div class="accordion-header">Renouveler une demande MDPH</div>
-        <div class="accordion-content">
-            <p>Renouveler les droits (AAH, PCH) avant expiration pour éviter une coupure.</p>
-            <p>Préparer le dossier médical et administratif.</p>
-            <a class="video-link" href="https://www.youtube.com/results?search_query=renouvellement+MDPH+tutoriel" target="_blank">🎥 Voir un tutoriel</a>
-        </div>
-    </div>
-
-    <div class="accordion">
-        <div class="accordion-header">Gérer les remboursements santé</div>
-        <div class="accordion-content">
-            <p>Vérifier les remboursements CPAM et mutuelle pour éviter les erreurs.</p>
-            <p>Contacter la mutuelle en cas de problème.</p>
-            <a class="video-link" href="https://www.youtube.com/results?search_query=remboursement+mutuelle+comment" target="_blank">🎥 Voir un tutoriel</a>
-        </div>
-    </div>
-
-</section>
-
-<footer>
-    <p>© 2026 TutoCare - Tous droits réservés</p>
-</footer>
+<footer>© 2026 TutoCare — Plateforme d'accompagnement administratif</footer>
 
 <script>
-document.querySelectorAll(".accordion-header").forEach(header => {
-    header.addEventListener("click", () => {
-        const content = header.nextElementSibling;
+const checkboxes = document.querySelectorAll(".task-checkbox");
+const progressCircle = document.querySelector(".progress");
+const percentText = document.getElementById("percent");
+const notif = document.getElementById("notif");
+const suggestion = document.getElementById("suggestion");
+const countDone = document.getElementById("count-done");
+const countLeft = document.getElementById("count-left");
+const total = checkboxes.length;
+const circumference = 251;
 
-        document.querySelectorAll(".accordion-content").forEach(c => {
-            if (c !== content) c.style.maxHeight = null;
+function update() {
+    const checked = document.querySelectorAll(".task-checkbox:checked").length;
+    const percent = checked / total;
+
+    progressCircle.style.strokeDashoffset = circumference * (1 - percent);
+    percentText.textContent = Math.round(percent * 100) + "%";
+    countDone.textContent = checked;
+    countLeft.textContent = total - checked;
+    notif.textContent = checked === total
+        ? "🎉 Toutes les tâches sont complétées !"
+        : `Il vous reste ${total - checked} tâche${total - checked > 1 ? "s" : ""} à compléter`;
+
+    progressCircle.style.stroke = percent === 0 ? "#4f46e5" : percent < 0.5 ? "#ef4444" : percent < 1 ? "#f59e0b" : "#22c55e";
+
+    const firstUnchecked = [...checkboxes].find(cb => !cb.checked);
+    if (firstUnchecked) {
+        const title = firstUnchecked.closest(".task").querySelector(".task-title");
+        suggestion.textContent = title.textContent.trim();
+    } else {
+        suggestion.textContent = "Toutes les étapes sont complétées !";
+    }
+}
+
+checkboxes.forEach(cb => cb.addEventListener("change", update));
+
+// Toggle accordéon
+document.querySelectorAll(".task-header").forEach(h => {
+    h.addEventListener("click", (e) => {
+        if (e.target.classList.contains("task-checkbox")) return;
+        const task = h.closest(".task");
+        const content = h.nextElementSibling;
+        const isOpen = task.classList.contains("open");
+
+        // ferme tous
+        document.querySelectorAll(".task").forEach(t => {
+            t.classList.remove("open");
+            t.querySelector(".task-content").style.maxHeight = null;
         });
 
-        if (content.style.maxHeight) {
-            content.style.maxHeight = null;
-        } else {
+        if (!isOpen) {
+            task.classList.add("open");
             content.style.maxHeight = content.scrollHeight + "px";
         }
     });
 });
-</script>
 
+// Lecture vidéo au clic sur le placeholder
+document.querySelectorAll(".video-wrapper").forEach(wrapper => {
+    wrapper.addEventListener("click", () => {
+        const videoId = wrapper.dataset.videoId;
+        const iframe = document.createElement("iframe");
+        iframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1`;
+        iframe.className = "video-frame";
+        iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+        iframe.allowFullscreen = true;
+        wrapper.innerHTML = "";
+        wrapper.appendChild(iframe);
+    });
+});
+</script>
 </body>
 </html>

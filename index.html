@@ -1,267 +1,213 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Tutelle — 5 points essentiels</title>
-  <meta name="description" content="Statuts, processus, missions, rendus et contrôle pour tuteur familial." />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simplifiez la gestion d’une tutelle familiale</title>
   <style>
-    :root{
-      --bg:#eef2ff;
-      --panel:#ffffff;
-      --text:#1e1b4b;
-      --muted:#6b7280;
-      --primary:#6366f1;
-      --border:#e0e7ff;
-      --shadow:0 8px 20px rgba(99,102,241,.15);
-      --radius:16px;
+    /* Base styles */
+    body {
+      font-family: 'Open Sans', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f9f9f9;
     }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      background:linear-gradient(180deg,#eef2ff 0%,#e0e7ff 100%);
-      font-family:"Segoe UI", system-ui, sans-serif;
-      color:var(--text);
-      -webkit-font-smoothing:antialiased;
+    h1, h2, h3 {
+      color: #2c3e50;
     }
-    .wrap{
-      max-width:800px;
-      margin:0 auto;
-      padding:20px 16px 60px;
+    a {
+      text-decoration: none;
+      color: inherit;
     }
-    h1{
-      margin-top:30px;
-      font-size:clamp(24px,4vw,36px);
-      letter-spacing:-0.02em;
-      color:var(--primary);
-      text-align:left;
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
     }
-    .sub{
-      color:var(--muted);
-      font-size:15px;
-      margin-bottom:30px;
-      text-align:left;
+    button {
+      background-color: #3498db;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #2980b9;
     }
 
-    /* Boutons */
-    .btns{
-      display:flex;
-      justify-content:flex-start;
-      gap:10px;
-      margin-bottom:20px;
-      flex-wrap:wrap;
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 50px 20px;
+      background-color: #eaf6ff;
     }
-    .btn{
-      background:var(--primary);
-      color:white;
-      border:none;
-      padding:10px 16px;
-      border-radius:12px;
-      font-size:14px;
-      cursor:pointer;
-      box-shadow:var(--shadow);
-      transition:transform .15s ease, background .2s ease;
+    .hero h1 {
+      font-size: 2.5rem;
     }
-    .btn:hover{
-      transform:translateY(-2px);
-      background:#4f46e5;
+    .hero p {
+      font-size: 1.2rem;
+      margin: 20px 0;
     }
 
-    /* Cartes */
-    details.acc{
-      background:var(--panel);
-      border:1px solid var(--border);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      margin:14px 0;
-      overflow:hidden;
-      transition:box-shadow .25s ease, transform .2s ease;
+    /* Sections */
+    section {
+      padding: 40px 20px;
     }
-    details.acc:hover{
-      transform:translateY(-2px);
-      box-shadow:0 12px 30px rgba(99,102,241,.2);
-    }
-    summary{
-      list-style:none;
-      cursor:pointer;
-      padding:18px 20px;
-      font-weight:600;
-      font-size:18px;
-      color:var(--primary);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:8px;
-      background:linear-gradient(90deg,#f5f3ff,#eef2ff);
-    }
-    summary::-webkit-details-marker{display:none}
-    .chev{
-      width:18px; height:18px;
-      stroke:var(--primary);
-      transition:transform .2s ease;
-    }
-    details[open] .chev{
-      transform:rotate(180deg);
+    .section-title {
+      text-align: center;
+      margin-bottom: 20px;
     }
 
-    .content{
-      padding:20px 30px;
-      color:var(--text);
-      background:white;
-      animation:fadeIn .3s ease;
-      text-align:left;
+    /* Problème Section */
+    .problem {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      gap: 20px;
     }
-    .content h3{
-      margin:10px 0 6px;
-      color:#312e81;
-      font-size:16px;
-    }
-    .content p, .content li{
-      color:#4338ca;
-      font-size:15px;
-      margin:6px 0;
-    }
-    .content ol, .content ul{
-      margin:6px 0 0 18px;
-      padding:0;
+    .problem div {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      text-align: center;
+      flex: 1 1 calc(33% - 20px);
     }
 
-    @keyframes fadeIn{
-      from{opacity:0; transform:translateY(-5px);}
-      to{opacity:1; transform:translateY(0);}
+    /* Solution Section */
+    .solution {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: space-around;
+    }
+    .solution div {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      flex: 1 1 calc(25% - 20px);
+      text-align: center;
     }
 
-    .note{
-      margin-top:30px;
-      font-size:14px;
-      color:#4f46e5;
-      background:rgba(99,102,241,.1);
-      border:1px solid var(--border);
-      border-radius:12px;
-      padding:12px;
-      display:inline-block;
+    /* Checklist Section */
+    .checklist {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .accordion {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      margin-bottom: 10px;
+      overflow: hidden;
+    }
+    .accordion-header {
+      padding: 15px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #3498db;
+      color: #fff;
+    }
+    .accordion-content {
+      padding: 15px;
+      display: none;
+      background: #f9f9f9;
+    }
+    .accordion-content p {
+      margin: 0;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #2c3e50;
+      color: #fff;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .problem, .solution {
+        flex-direction: column;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <h1 style="text-align: center;">La tutelle : Un enfer administratif !</h1>
-    <p class="sub" style="text-align: justify;">Aujourd’hui, environ un million de personnes majeures bénéficient d’une mesure de protection en France. Près de la moitié de ces situations sont liées au vieillissement, environ un tiers à un handicap, et le reste à des difficultés sociales importantes. Avec l’augmentation continue de l’âge moyen de la population, le nombre de personnes ayant besoin d’un accompagnement devrait encore progresser, d’environ un à deux pour cent chaque année.</p>
+  <!-- Hero Section -->
+  <header class="hero">
+    <h1>Simplifiez la gestion d’une tutelle familiale</h1>
+    <p>Gérez les démarches administratives sans stress</p>
+    <button>Commencer</button>
+  </header>
 
-    <!-- 1 -->
-    <details class="acc" open>
-      <summary>1️⃣ - Les différents statuts <svg class="chev" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
-      <div class="content" style="text-align: justify;">
-        <p>Lorsqu’un majeur n’est plus en mesure de protéger seul ses intérêts, trois types de mesures peuvent être décidées par le juge.</p>
-        <h3>La sauvegarde de justice :</h3>
-        <p>La sauvegarde de justice est la mesure la plus légère et la plus courte. Elle dure jusqu’à un an, renouvelable une fois. La personne garde la majorité de ses droits et agit elle-même, mais un représentant peut intervenir pour corriger ou contester certains actes si nécessaire.</p>
-        <h3>La curatelle :</h3>
-        <p>La curatelle est une mesure d’accompagnement qui dure en principe jusqu’à cinq ans. La personne conserve son autonomie pour les actes simples de la vie quotidienne, mais elle doit être assistée et conseillée par un curateur pour les décisions importantes comme la signature de contrats ou la gestion du patrimoine.</p>
-        <h3>La tutelle :</h3>
-        <p>La tutelle est la mesure la plus protectrice. Elle dure généralement jusqu’à cinq ans, renouvelable si l’état de la personne l’exige. Le tuteur représente presque totalement la personne dans ses actes importants. Le majeur garde une place dans les décisions, mais c’est le tuteur qui agit et signe pour protéger ses intérêts lorsque c’est nécessaire.</p>
+  <!-- Problème Section -->
+  <section>
+    <h2 class="section-title">Les défis des tuteurs familiaux</h2>
+    <div class="problem">
+      <div>Complexité</div>
+      <div>Charge mentale</div>
+      <div>Manque d’accompagnement</div>
+    </div>
+  </section>
+
+  <!-- Solution Section -->
+  <section>
+    <h2 class="section-title">Nos solutions</h2>
+    <div class="solution">
+      <div>Tableau de bord de suivi</div>
+      <div>Démarches guidées pas à pas</div>
+      <div>Coffre-fort de documents</div>
+      <div>Rappels automatiques</div>
+    </div>
+  </section>
+
+  <!-- Checklist Section -->
+  <section>
+    <h2 class="section-title">👉 Exemples de démarches à gérer</h2>
+    <div class="checklist">
+      <div class="accordion">
+        <div class="accordion-header">Déclarer les ressources à la CAF</div>
+        <div class="accordion-content">
+          <p>Déclarez vos ressources annuelles pour éviter les pénalités.</p>
+        </div>
       </div>
-    </details>
-
-    <!-- 2 -->
-    <details class="acc">
-      <summary>2️⃣ - Le processus de mise en place <svg class="chev" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
-      <div class="content">
-        <ol style="text-align: justify;">
-          <li><h3>Initiation de la demande :</h3></li>
-          <p>La mise sous protection peut être demandée par la personne elle-même, un proche ou un professionnel (comme un médecin).</p>
-          <li><h3>Transmission au juge :</h3> </li>
-          <p>Le dossier est envoyé au juge des contentieux de la protection. Il doit impérativement contenir un certificat médical circonstancié, établi par un médecin inscrit sur la liste du procureur de la République. Ce certificat décrit l’état de santé de la personne et justifie la nécessité d’une mesure de protection.</p>
-          <li><h3>Instruction du dossier :</h3> </li>
-          <p>Le juge examine l’ensemble des éléments. Il procède à l’audition de la personne concernée (si son état le permet) ainsi que de ses proches.</p>
-          <li><h3>Décision et désignation du protecteur :</h3> </li>
-          <p>Le juge choisit ensuite la mesure adaptée (tutelle, curatelle, habilitation familiale…). La priorité est donnée à un membre de la famille ; à défaut, un mandataire judiciaire à la protection des majeurs est nommé.
-          La personne désignée reçoit une notification officielle et doit prêter serment devant le juge pour valider sa mission.</p>
-        </ol>
+      <div class="accordion">
+        <div class="accordion-header">Payer les factures mensuelles</div>
+        <div class="accordion-content">
+          <p>Assurez le paiement des factures pour éviter les coupures.</p>
+        </div>
       </div>
-    </details>
-
-    <!-- 3 -->
-    <details class="acc">
-      <summary>3️⃣ - Le rôle du tuteur <svg class="chev" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
-      <div class="content">
-        <h3>Rémunération :</h3>
-        <ul>
-          <li>Peut être financée par les ressources du majeur</li>
-          <li>Peut être financée par la famille</li>
-          <li>Peut être financée par l’État en cas de précarité sociale</li>
-        </ul>
-
-        <h3>Volume annuel :</h3>
-        <ul>
-          <li>Environ 100 démarches</li>
-          <li>Entre 25 et 60 heures de suivi</li>
-          <li>Compte rendu financier obligatoire au 30 juin</li>
-        </ul>
-
-        <h3>Volume mensuel :</h3>
-        <ul>
-          <li>Entre 1 et 4 heures de suivi financier</li>
-          <li>Entre 1 et 3 contacts à gérer</li>
-          <li>Environ 50 documents à conserver</li>
-        </ul>
+      <div class="accordion">
+        <div class="accordion-header">Faire le compte rendu de gestion annuel</div>
+        <div class="accordion-content">
+          <p>Préparez un rapport détaillé pour le juge des tutelles.</p>
+        </div>
       </div>
-    </details>
+    </div>
+  </section>
 
-    <!-- 4 -->
-    <details class="acc">
-      <summary>4️⃣ - Le contrôle de la tutelle <svg class="chev" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
-      <div class="content">
-        <h3>Le contrôle de la mesure</h3>
-        <p>Le contrôle de la mesure de protection est assuré par le contrôleur de gestion (expert-comptable) et par le juge. Au début du tutorat, le contrôleur de gestion réalise un inventaire destiné à établir précisément le patrimoine propre du majeur protégé.</p>
-        <h3>Le suivi annuel</h3>
-        <p>Chaque année, le contrôleur de gestion rédige un rapport sur les finances de la personne protégée, lequel est ensuite examiné et vérifié par le juge ou par le greffier.</p>
-        <h3>La vérification des comptes</h3>
-        <p>Cette étape est essentielle au bon fonctionnement du tutorat ; elle permet à l’ensemble des parties de disposer d’un aperçu clair et précis de la situation financière du majeur protégé.</p>
-      </div>
-    </details>
-
-    <!-- 5 -->
-    <details class="acc">
-      <summary>5️⃣ - Les problèmes récurents <svg class="chev" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
-      <div class="content" style="text-align: justify;">
-        <p>Suite à nos recherches et échanges avec différentes parties prenantes, un nombre de problèmes est ressorti.</p>
-        <h3>Aidant : </h3>
-        <p>L’aidant est mal informé et très peu accompagné.
-        La conservation des documents, les démarches à suivre, la charge de temps et la charge mentale sont conséquentes.<br>
-        &rarr; La gestion du majeur pour les aidants est difficile, chronophage et insuffisamment encadrée.</p>
-        <h3>Controleur : </h3>
-        <p>Ensuite, pour les contrôleurs de la protection du majeur protégé, la visibilité sur ses biens et sur les actions de l’aidant est souvent trop faible.
-        <br>&rarr; Aider le contrôleur dans sa démarche est essentiel pour renforcer le suivi.</p>
-        <h3>Abus : </h3>
-        <p>Enfin, les mises sous protection mettent en lumière de nombreux conflits entre les proches du majeur, et de nombreux abus peuvent survenir.
-        <br>&rarr; Besoin de transparence entre le tuteur, le contrôleur de tutelle, le juge et la famille.</p>
-      </div>
-    </details>
-
-    <!-- 6 -->
-    <details class="acc">
-      <summary>Les sources<svg class="chev" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
-      <div class="content">
-        <p><a href="https://www.justice.fr/" target="_blank">https://www.justice.fr/</a></p>
-        <p><a href="https://www.justice.fr/themes/tutelle-curatelle" target="_blank">https://www.justice.fr/themes/tutelle-curatelle</a></p>
-        <p><a href="https://www.insee.fr/fr/statistiques/2383440" target="_blank">https://www.insee.fr/fr/statistiques/2383440</a></p>
-        <p><a href="https://www.ccomptes.fr/fr/publications/la-protection-juridique-des-majeurs" target="_blank">https://www.ccomptes.fr/fr/publications/la-protection-juridique-des-majeurs</a></p>
-        <p><a href="https://www.assemblee-nationale.fr/dossiers/protection_majeurs.asp" target="_blank">https://www.assemblee-nationale.fr/dossiers/protection_majeurs.asp</a></p>
-        <p><a href="https://www.unaf.fr/spip.php?article23029" target="_blank">https://www.unaf.fr/spip.php?article23029</a></p>
-        <p><a href="https://www.justice.gouv.fr/fiche-mandataires-judiciaires" target="_blank">https://www.justice.gouv.fr/fiche-mandataires-judiciaires</a></p>
-        <p><a href="https://www.service-public.fr/particuliers/vosdroits/F2079" target="_blank">https://www.service-public.fr/particuliers/vosdroits/F2079</a></p>
-        <p><a href="https://www.unaf.fr/IMG/pdf/guide_tuteur_familial.pdf" target="_blank">https://www.unaf.fr/IMG/pdf/guide_tuteur_familial.pdf</a></p>
-        <p><a href="https://www.service-public.fr/particuliers/vosdroits/F2122" target="_blank">https://www.service-public.fr/particuliers/vosdroits/F2122</a></p>
-      </div>
-    </details>
-
-    <p class="note">📘 Réalisé par Nicolas CONNAN, Gabriel GUINGAND, Leopold BALLESTER, Jérémy MAURIN et Mathieu WILLEM 📘</p>
-  </div>
+  <!-- Footer -->
+  <footer>
+    <p>Contact | Mentions légales</p>
+  </footer>
 
   <script>
-    const all = () => Array.from(document.querySelectorAll("details.acc"));
-    document.getElementById("openAll").onclick = () => all().forEach(d => d.open = true);
-    document.getElementById("closeAll").onclick = () => all().forEach(d => d.open = false);
+    // JavaScript for accordion functionality
+    document.querySelectorAll('.accordion-header').forEach(header => {
+      header.addEventListener('click', () => {
+        const content = header.nextElementSibling;
+        content.style.display = content.style.display === 'block' ? 'none' : 'block';
+      });
+    });
   </script>
 </body>
 </html>

@@ -3,193 +3,202 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gestion Tutelle</title>
+<title>Tutelle Simplifiée</title>
 
 <style>
 body {
-    font-family: 'Arial', sans-serif;
     margin: 0;
-    background: #f5f7fa;
-    color: #333;
+    font-family: 'Segoe UI', sans-serif;
+    background: #f6f9fc;
+    color: #1a1a1a;
+}
+
+/* NAVBAR */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.navbar h2 {
+    color: #2E86C1;
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.navbar li {
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.navbar li:hover {
+    color: #2E86C1;
 }
 
 /* HERO */
 .hero {
-    background: linear-gradient(135deg, #4CAF50, #2E86C1);
-    color: white;
-    text-align: center;
     padding: 60px 20px;
+    text-align: center;
 }
 
 .hero h1 {
-    font-size: 2em;
+    font-size: 2.5em;
+    margin-bottom: 10px;
 }
 
-.hero button {
-    padding: 12px 25px;
-    border: none;
-    background: white;
-    color: #2E86C1;
-    border-radius: 25px;
-    cursor: pointer;
-    margin-top: 20px;
+.hero p {
+    color: #666;
 }
 
-/* SECTIONS */
+/* SECTION */
 .section {
-    padding: 40px 20px;
     max-width: 900px;
     margin: auto;
-}
-
-/* CARDS */
-.cards {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-}
-
-.card {
-    background: white;
-    padding: 20px;
-    flex: 1;
-    min-width: 200px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    padding: 40px 20px;
 }
 
 /* CHECKLIST */
 .accordion {
     background: white;
-    border-radius: 10px;
-    margin-bottom: 10px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
     overflow: hidden;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+}
+
+.accordion:hover {
+    transform: translateY(-2px);
 }
 
 .accordion-header {
-    padding: 15px;
+    padding: 18px;
+    font-weight: 600;
     cursor: pointer;
-    font-weight: bold;
-    background: #eaf2f8;
+    display: flex;
+    justify-content: space-between;
+    background: #eef5fb;
 }
 
 .accordion-content {
     max-height: 0;
     overflow: hidden;
-    padding: 0 15px;
-    transition: max-height 0.3s ease;
-    background: white;
+    transition: max-height 0.35s ease;
+    padding: 0 18px;
 }
 
 .accordion-content p {
     margin: 10px 0;
 }
 
-/* FOOTER */
-footer {
-    background: #2E86C1;
-    color: white;
-    text-align: center;
-    padding: 20px;
+.video-link {
+    display: inline-block;
+    margin-top: 10px;
+    color: #2E86C1;
+    text-decoration: none;
+    font-size: 0.9em;
 }
 
+.video-link:hover {
+    text-decoration: underline;
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #777;
+}
 </style>
 </head>
 
 <body>
 
+<!-- NAVBAR -->
+<div class="navbar">
+    <h2>TutoCare</h2>
+    <ul>
+        <li>Tableau de bord</li>
+        <li>Qui sommes-nous</li>
+    </ul>
+</div>
+
 <!-- HERO -->
 <section class="hero">
-    <h1>Simplifiez la gestion d’une tutelle</h1>
-    <p>Gérez les démarches administratives sans stress</p>
-    <button>Commencer</button>
-</section>
-
-<!-- PROBLEME -->
-<section class="section">
-    <h2>Un quotidien complexe</h2>
-    <p>Jusqu’à 100 démarches administratives par an</p>
-
-    <div class="cards">
-        <div class="card">📄 Complexité administrative</div>
-        <div class="card">😓 Charge mentale</div>
-        <div class="card">❌ Manque d’accompagnement</div>
-    </div>
-</section>
-
-<!-- SOLUTION -->
-<section class="section">
-    <h2>Notre solution</h2>
-    <div class="cards">
-        <div class="card">📊 Tableau de bord</div>
-        <div class="card">🧭 Démarches guidées</div>
-        <div class="card">🔒 Documents sécurisés</div>
-        <div class="card">⏰ Rappels automatiques</div>
-    </div>
+    <h1>Gérer une tutelle n’a jamais été aussi simple</h1>
+    <p>Un accompagnement clair pour les tuteurs familiaux</p>
 </section>
 
 <!-- CHECKLIST -->
 <section class="section">
-    <h2>Exemples de démarches à gérer</h2>
+    <h2>Checklist des démarches essentielles</h2>
 
     <div class="accordion">
         <div class="accordion-header">Déclarer les ressources à la CAF</div>
         <div class="accordion-content">
-            <p>Mettre à jour les revenus tous les trimestres pour maintenir les droits aux aides.</p>
+            <p>Déclarer les revenus tous les trimestres pour maintenir les droits aux aides.</p>
+            <p>Étapes : créer un compte CAF → saisir les revenus → vérifier la validation.</p>
+            <a class="video-link" href="https://www.youtube.com/results?search_query=déclaration+CAF+tutoriel" target="_blank">🎥 Voir un tutoriel</a>
         </div>
     </div>
 
     <div class="accordion">
         <div class="accordion-header">Payer les factures mensuelles</div>
         <div class="accordion-content">
-            <p>Gérer les paiements (loyer, énergie, téléphone) et éviter les retards.</p>
+            <p>Assurer le paiement du loyer, énergie et assurances pour éviter les pénalités.</p>
+            <p>Mettre en place des prélèvements automatiques si possible.</p>
+            <a class="video-link" href="https://www.youtube.com/results?search_query=gérer+factures+budget" target="_blank">🎥 Voir un tutoriel</a>
         </div>
     </div>
 
     <div class="accordion">
-        <div class="accordion-header">Compte rendu de gestion annuel</div>
+        <div class="accordion-header">Faire le compte rendu de gestion annuel</div>
         <div class="accordion-content">
-            <p>Transmettre au juge les dépenses, recettes et situation financière.</p>
+            <p>Document obligatoire à transmettre au juge avec toutes les dépenses et recettes.</p>
+            <p>Inclure justificatifs et relevés bancaires.</p>
+            <a class="video-link" href="https://www.youtube.com/results?search_query=compte+rendu+gestion+tutelle" target="_blank">🎥 Voir un tutoriel</a>
         </div>
     </div>
 
     <div class="accordion">
         <div class="accordion-header">Renouveler une demande MDPH</div>
         <div class="accordion-content">
-            <p>Faire la demande de renouvellement des droits (AAH, PCH).</p>
+            <p>Renouveler les droits (AAH, PCH) avant expiration pour éviter une coupure.</p>
+            <p>Préparer le dossier médical et administratif.</p>
+            <a class="video-link" href="https://www.youtube.com/results?search_query=renouvellement+MDPH+tutoriel" target="_blank">🎥 Voir un tutoriel</a>
         </div>
     </div>
 
     <div class="accordion">
         <div class="accordion-header">Gérer les remboursements santé</div>
         <div class="accordion-content">
-            <p>Vérifier les remboursements CPAM et mutuelle.</p>
+            <p>Vérifier les remboursements CPAM et mutuelle pour éviter les erreurs.</p>
+            <p>Contacter la mutuelle en cas de problème.</p>
+            <a class="video-link" href="https://www.youtube.com/results?search_query=remboursement+mutuelle+comment" target="_blank">🎥 Voir un tutoriel</a>
         </div>
     </div>
 
 </section>
 
-<!-- FONCTIONNEMENT -->
-<section class="section">
-    <h2>Comment ça marche ?</h2>
-    <div class="cards">
-        <div class="card">1️⃣ Créer un compte</div>
-        <div class="card">2️⃣ Suivre les démarches</div>
-        <div class="card">3️⃣ Recevoir des rappels</div>
-    </div>
-</section>
-
-<!-- FOOTER -->
 <footer>
-    <p>Contact | Mentions légales</p>
+    <p>© 2026 TutoCare - Tous droits réservés</p>
 </footer>
 
 <script>
-// ACCORDION
 document.querySelectorAll(".accordion-header").forEach(header => {
     header.addEventListener("click", () => {
         const content = header.nextElementSibling;
+
+        document.querySelectorAll(".accordion-content").forEach(c => {
+            if (c !== content) c.style.maxHeight = null;
+        });
 
         if (content.style.maxHeight) {
             content.style.maxHeight = null;

@@ -1,0 +1,559 @@
+/* ── VARIABLES ── */
+:root {
+    --indigo: #4f46e5;
+    --indigo-light: #e0e7ff;
+    --indigo-dark: #3730a3;
+    --red: #ef4444;
+    --amber: #f59e0b;
+    --green: #22c55e;
+    --surface: #ffffff;
+    --bg: #f1f5f9;
+    --text: #1e293b;
+    --muted: #64748b;
+    --border: #e2e8f0;
+    --shadow: 0 4px 24px rgba(79,70,229,0.07);
+    --radius: 16px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ── NAVBAR ── */
+.navbar {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 32px;
+    padding: 0 40px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 1px 12px rgba(0,0,0,0.06);
+}
+
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+
+.nav-logo {
+    width: 36px;
+    height: 36px;
+    background: var(--indigo);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    color: white;
+    font-size: 1em;
+    letter-spacing: -0.5px;
+}
+
+.nav-brand-name {
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    font-size: 1.15em;
+    color: var(--text);
+}
+
+.nav-brand-name span {
+    color: var(--indigo);
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 0.9em;
+    font-weight: 500;
+    padding: 8px 14px;
+    border-radius: 10px;
+    transition: background 0.18s, color 0.18s;
+}
+
+.nav-links a:hover {
+    background: var(--indigo-light);
+    color: var(--indigo);
+}
+
+.nav-links a.active {
+    background: var(--indigo-light);
+    color: var(--indigo);
+    font-weight: 600;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.nav-avatar {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, #c7d2fe, #a5b4fc);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: var(--indigo-dark);
+    font-size: 0.85em;
+    cursor: pointer;
+    border: 2px solid var(--indigo-light);
+}
+
+/* ── LAYOUT ── */
+.container {
+    display: flex;
+    gap: 24px;
+    padding: 32px 40px;
+    flex: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* ── HEADER ── */
+.page-header {
+    text-align: center;
+    margin-bottom: 48px; /* Ajoute un espacement sous le titre */
+    margin-top: 16px; /* Ajoute un espacement au-dessus du titre */
+}
+
+.page-header h2 {
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    font-size: 1.6em;
+    color: var(--text);
+}
+
+.page-header p {
+    color: var(--muted);
+    font-size: 0.9em;
+    margin-top: 4px;
+}
+
+/* ── LEFT ── */
+.left { flex: 2; }
+
+/* ── TASK ── */
+.task {
+    background: var(--surface);
+    border-radius: var(--radius);
+    margin-bottom: 14px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+}
+
+.task:hover {
+    box-shadow: 0 8px 30px rgba(79,70,229,0.1);
+}
+
+.task-header {
+    padding: 16px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.task-checkbox {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--indigo);
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.task-title {
+    flex: 1;
+    font-weight: 500;
+    font-size: 0.95em;
+    color: var(--text);
+}
+
+.badge {
+    font-size: 0.72em;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    color: white;
+    letter-spacing: 0.3px;
+}
+
+.urgent { background: var(--red); }
+.soon   { background: var(--amber); }
+
+.chevron {
+    color: var(--muted);
+    font-size: 0.85em;
+    transition: transform 0.25s;
+    flex-shrink: 0;
+}
+
+.task.open .chevron { transform: rotate(180deg); }
+
+/* ── TASK CONTENT ── */
+.task-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+}
+
+.task-body {
+    padding: 0 18px 18px;
+    border-top: 1px solid var(--border);
+}
+
+.task-description {
+    font-size: 0.88em;
+    color: var(--muted);
+    line-height: 1.6;
+    margin: 12px 0;
+}
+
+/* ── VIDEO PLACEHOLDER ── */
+.video-wrapper {
+    border-radius: 10px;
+    overflow: hidden;
+    background: #1e1b4b;
+    position: relative;
+    aspect-ratio: 16/9;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    cursor: pointer;
+    border: 1px solid #312e81;
+}
+
+.video-wrapper::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 30% 40%, rgba(99,102,241,0.3), transparent 60%);
+}
+
+.video-icon {
+    width: 52px;
+    height: 52px;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(4px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3em;
+    position: relative;
+    z-index: 1;
+    border: 1.5px solid rgba(255,255,255,0.2);
+    transition: background 0.2s, transform 0.2s;
+}
+
+.video-wrapper:hover .video-icon {
+    background: rgba(255,255,255,0.25);
+    transform: scale(1.08);
+}
+
+.video-label {
+    font-size: 0.8em;
+    color: rgba(255,255,255,0.6);
+    position: relative;
+    z-index: 1;
+}
+
+iframe.video-frame {
+    width: 100%;
+    height: 100%;
+    border: none;
+    position: absolute;
+    inset: 0;
+    border-radius: 10px;
+}
+
+/* ── RIGHT ── */
+.right { flex: 1; display: flex; flex-direction: column; gap: 16px; }
+
+.card {
+    background: var(--surface);
+    padding: 24px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    text-align: center;
+}
+
+.card h3 {
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    font-size: 1em;
+    margin-bottom: 18px;
+    color: var(--text);
+}
+
+/* ── DONUT ── */
+.chart-container {
+    position: relative;
+    width: 160px;
+    margin: 0 auto 16px;
+}
+
+.chart-container svg {
+    transform: rotate(-90deg);
+    width: 160px;
+    height: 160px;
+}
+
+circle { fill: none; stroke-width: 12; }
+.bg       { stroke: var(--border); }
+.progress { stroke: var(--indigo); stroke-linecap: round; transition: stroke-dashoffset 0.5s ease, stroke 0.4s; }
+
+.center-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Sora', sans-serif;
+    font-size: 1.5em;
+    font-weight: 700;
+    color: var(--text);
+}
+
+/* ── SUGGESTION ── */
+.suggestion-box {
+    background: var(--indigo-light);
+    border-radius: 10px;
+    padding: 12px 14px;
+    text-align: left;
+    font-size: 0.83em;
+    color: var(--indigo-dark);
+    line-height: 1.5;
+    margin-bottom: 14px;
+}
+
+.suggestion-box strong {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 2px;
+    font-size: 0.85em;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--indigo);
+}
+
+/* ── NOTIF ── */
+.notification {
+    background: linear-gradient(135deg, var(--indigo), var(--indigo-dark));
+    color: white;
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 0.85em;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+/* ── STATS ROW ── */
+.stats-row {
+    display: flex;
+    gap: 10px;
+}
+
+.stat {
+    flex: 1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 10px;
+    text-align: center;
+}
+
+.stat-number {
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    font-size: 1.5em;
+    color: var(--text);
+}
+
+.stat-label {
+    font-size: 0.75em;
+    color: var(--muted);
+    margin-top: 3px;
+}
+
+/* ── FOOTER ── */
+footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 0.82em;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    background: white;
+}
+
+/* ── COMPTE RENDU DE GESTION : SIMULATION DE PAGES PDF ── */
+.report-page {
+    background: var(--surface); /* Fond blanc pour simuler une feuille */
+    border: 1px solid var(--border); /* Bordure légère pour délimiter la page */
+    border-radius: 4px; /* Coins légèrement arrondis */
+    box-shadow: var(--shadow); /* Ombre pour donner un effet de feuille */
+    width: 794px; /* Largeur d'une page A4 en pixels (environ 21cm) */
+    height: 1123px; /* Hauteur d'une page A4 en pixels (environ 29.7cm) */
+    margin: 32px auto; /* Centrer la page et ajouter un espacement vertical */
+    padding: 40px; /* Marges internes pour le contenu */
+    overflow: hidden; /* Empêcher le contenu de dépasser la page */
+    page-break-inside: avoid; /* Empêcher les coupures entre les pages */
+}
+
+.report-page h3 {
+    font-family: 'Sora', sans-serif;
+    font-weight: 600;
+    color: var(--indigo);
+    margin-bottom: 16px;
+}
+
+.report-page p, .report-page ul {
+    font-size: 1em;
+    line-height: 1.6;
+    color: var(--text);
+}
+
+.report-page ul {
+    padding-left: 20px;
+}
+
+.report-page ul li {
+    margin-bottom: 8px;
+    list-style: disc;
+}
+
+/* Centrer le conteneur global */
+.report-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+}
+
+/* ── QUI SOMMES-NOUS ── */
+.content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: left;
+    line-height: 1.6;
+    font-size: 0.95em;
+    color: var(--text);
+}
+
+.content ul {
+    margin-top: 12px;
+    padding-left: 20px;
+}
+
+.content ul li {
+    margin-bottom: 8px;
+    list-style: disc;
+}
+
+.page-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.page-header h2 {
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    font-size: 2em;
+    color: var(--indigo-dark);
+}
+
+.page-header p {
+    font-size: 1em;
+    color: var(--muted);
+    margin-top: 8px;
+}
+
+/* ── QUI SOMMES-NOUS : IMAGE ── */
+.image-container {
+    text-align: center; /* Centre l'image horizontalement */
+    margin-top: 24px; /* Ajoute un espacement au-dessus de l'image */
+}
+
+.about-image {
+    max-width: 50%; /* Réduit la largeur de l'image à 50% de son conteneur */
+    height: auto; /* Maintient les proportions de l'image */
+    border-radius: 8px; /* Coins arrondis pour un effet esthétique */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ajoute une ombre légère */
+}
+
+/* ── PAGE NAVIGATION (OPTIONNEL) ── */
+.page-navigation {
+    margin-top: 16px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.page-navigation a {
+    text-decoration: none;
+    color: var(--indigo);
+    font-weight: 600;
+    font-size: 0.9em;
+    padding: 8px 12px;
+    border: 1px solid var(--indigo);
+    border-radius: var(--radius);
+    transition: background 0.2s, color 0.2s;
+}
+
+.page-navigation a:hover {
+    background: var(--indigo);
+    color: white;
+}
+
+/* ── BODY : Assurez que le contenu occupe toute la hauteur de la fenêtre ── */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Assure que le body occupe toute la hauteur de la fenêtre */
+    margin: 0;
+}
+
+/* ── CONTAINER PRINCIPAL ── */
+.container {
+    flex: 1; /* Permet au contenu principal de s'étendre pour pousser le footer en bas */
+}
+
+/* ── FOOTER FIXE ── */
+footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 0.82em;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    background: white;
+    margin-top: auto; /* Pousse le footer en bas si le contenu est trop court */
+}

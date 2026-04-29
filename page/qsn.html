@@ -3,43 +3,205 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Qui sommes-nous - TutoCare</title>
+    <title>Qui sommes-nous — Ges'Tut</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../style/styles.css">
+    <style>
+        .page-wrap { max-width:960px; margin:0 auto; padding:40px; }
+        .hero { text-align:center; margin-bottom:56px; }
+        .hero-logo { width:72px; height:72px; background:var(--indigo); border-radius:20px; display:flex; align-items:center; justify-content:center; font-family:'Sora',sans-serif; font-weight:700; color:white; font-size:1.8em; margin:0 auto 16px; }
+        .hero h1 { font-family:'Sora',sans-serif; font-weight:700; font-size:2.2em; color:var(--text); margin-bottom:12px; }
+        .hero h1 span { color:var(--indigo); }
+        .hero p { font-size:1.05em; color:var(--muted); max-width:560px; margin:0 auto; line-height:1.7; }
+
+        .stats-band { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-bottom:48px; }
+        .stat-big { text-align:center; padding:24px; background:var(--surface); border-radius:var(--radius); border:1px solid var(--border); box-shadow:var(--shadow); }
+        .stat-big .sb-num { font-family:'Sora',sans-serif; font-weight:700; font-size:2em; color:var(--indigo); }
+        .stat-big .sb-label { font-size:0.82em; color:var(--muted); margin-top:4px; line-height:1.4; }
+
+        .section-title { font-family:'Sora',sans-serif; font-weight:700; font-size:1.3em; color:var(--text); margin-bottom:20px; }
+
+        .features-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin-bottom:48px; }
+        .feature-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:20px; box-shadow:var(--shadow); }
+        .feature-icon { font-size:1.8em; margin-bottom:10px; }
+        .feature-card h3 { font-family:'Sora',sans-serif; font-weight:700; font-size:0.95em; color:var(--text); margin-bottom:6px; }
+        .feature-card p { font-size:0.82em; color:var(--muted); line-height:1.6; }
+
+        .team-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin-bottom:48px; }
+        .team-card { text-align:center; padding:18px 10px; background:var(--surface); border-radius:var(--radius); border:1px solid var(--border); box-shadow:var(--shadow); }
+        .team-avatar { width:48px; height:48px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:1em; margin:0 auto 10px; }
+        .team-name { font-weight:700; font-size:0.84em; color:var(--text); }
+        .team-role { font-size:0.74em; color:var(--muted); margin-top:2px; }
+
+        .pricing-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-bottom:48px; }
+        .pricing-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:24px; box-shadow:var(--shadow); position:relative; }
+        .pricing-card.featured { border-color:var(--indigo); box-shadow:0 0 0 2px var(--indigo-light), var(--shadow-md); }
+        .pricing-badge { position:absolute; top:-12px; left:50%; transform:translateX(-50%); background:var(--indigo); color:white; font-size:0.7em; font-weight:700; padding:3px 12px; border-radius:20px; white-space:nowrap; }
+        .pricing-name { font-family:'Sora',sans-serif; font-weight:700; font-size:0.95em; color:var(--text); margin-bottom:6px; }
+        .pricing-price { font-family:'Sora',sans-serif; font-weight:700; font-size:1.8em; color:var(--indigo); margin-bottom:4px; }
+        .pricing-sub { font-size:0.76em; color:var(--muted); margin-bottom:16px; }
+        .pricing-feat { font-size:0.8em; color:var(--text); display:flex; gap:6px; align-items:flex-start; margin-bottom:7px; }
+
+        .vision-box { background:linear-gradient(135deg,var(--indigo),var(--indigo-dark)); border-radius:var(--radius); padding:36px; text-align:center; color:white; }
+        .vision-box h2 { font-family:'Sora',sans-serif; font-weight:700; font-size:1.5em; margin-bottom:12px; }
+        .vision-box p { font-size:0.9em; opacity:0.85; max-width:560px; margin:0 auto; line-height:1.7; }
+    </style>
 </head>
 <body>
-    <nav class="navbar">
-        <a class="nav-brand" href="index.html">
-            <div class="nav-logo">GC</div>
-            <span class="nav-brand-name">Ges'<span>Tut</span></span>
-        </a>
-        <div class="nav-links">
-            <a href="../index.html">Dashboard</a>
-            <a href="cr.html">Compte rendu de gestion</a>
-            <a href="calendrier.html">Calendrier</a>
-            <a href="qsn.html" class="active">Qui sommes-nous</a>
-        </div>
-        <div class="nav-right">
-            <div class="nav-avatar">MR</div>
-        </div>
-    </nav>
 
-    <div class="container">
-        <div class="page-header">
-            <h2>Qui sommes-nous ?</h2>
-            <p>TutoCare est une plateforme dédiée à la gestion des démarches administratives pour les tuteurs légaux.</p>
-            <p>Notre mission est de simplifier et d'organiser les processus pour garantir une gestion efficace et conforme.</p>
-            
-            <h2>Nous offrons des outils pour :</h2>
-            <ul>
-                <li>Suivre les démarches administratives étape par étape.</li>
-                <li>Générer des rapports de gestion pour les contrôleurs de tutelle.</li>
-                <li>Centraliser les informations importantes.</li>
-            </ul>
-            <p>Notre objectif est de vous accompagner dans vos responsabilités avec simplicité et efficacité.</p>
-        </div>
+<nav class="navbar">
+    <a class="nav-brand" href="../index.html">
+        <div class="nav-logo">GT</div>
+        <span class="nav-brand-name">Ges'<span>Tut</span></span>
+    </a>
+    <div class="nav-links">
+        <a href="../index.html"><span class="nav-icon">🏠</span> Dashboard</a>
+        <a href="calendrier.html"><span class="nav-icon">📅</span> Calendrier</a>
+        <a href="cr.html"><span class="nav-icon">📊</span> Compte de gestion</a>
+        <a href="documents.html"><span class="nav-icon">📁</span> Documents</a>
+        <a href="lexique.html"><span class="nav-icon">📖</span> Lexique</a>
+        <a href="assistant.html"><span class="nav-icon">🤖</span> Assistant IA</a>
+    </div>
+    <div class="nav-right">
+        <div class="nav-notif-btn">🔔 <span class="nav-notif-badge">3</span></div>
+        <div class="nav-avatar">MW</div>
+    </div>
+</nav>
 
+<div class="page-wrap">
+
+    <!-- HERO -->
+    <div class="hero">
+        <div class="hero-logo">GT</div>
+        <h1>Ges'<span>Tut</span></h1>
+        <p>La plateforme qui accompagne les tuteurs familiaux dans toutes leurs démarches administratives — sans stress, sans erreur, sans jargon.</p>
     </div>
 
-    <footer>© 2026 Ges'Tut — Plateforme d'accompagnement administratif</footer>
+    <!-- STATS -->
+    <div class="stats-band">
+        <div class="stat-big">
+            <div class="sb-num">855 000</div>
+            <div class="sb-label">majeurs protégés en France en 2024</div>
+        </div>
+        <div class="stat-big">
+            <div class="sb-num">55%</div>
+            <div class="sb-label">des tuteurs sont des proches familiaux, souvent non formés</div>
+        </div>
+        <div class="stat-big">
+            <div class="sb-num">120–240h</div>
+            <div class="sb-label">de charge administrative annuelle pour un tuteur familial</div>
+        </div>
+    </div>
+
+    <!-- FONCTIONNALITÉS -->
+    <h2 class="section-title">Ce que Ges'Tut fait pour vous</h2>
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon">📅</div>
+            <h3>Calendrier des obligations</h3>
+            <p>Ne manquez plus aucune échéance légale. Alertes J-30, J-7 et J-1 automatiques pour toutes vos obligations de tuteur.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">📊</div>
+            <h3>Compte de gestion annuel</h3>
+            <p>Saisie simplifiée des recettes et dépenses, synthèse automatique, export PDF conforme au modèle du greffe du tribunal.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">📁</div>
+            <h3>Gestionnaire de documents</h3>
+            <p>Centralisez tous vos documents (juridiques, médicaux, financiers) avec alertes d'expiration et accès rapide.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">📖</div>
+            <h3>Lexique juridique</h3>
+            <p>50+ termes juridiques expliqués simplement avec des exemples concrets tirés de la vie réelle d'un tuteur.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🤖</div>
+            <h3>Assistant IA spécialisé</h3>
+            <p>Un chatbot entraîné sur le droit de la tutelle pour répondre à vos questions à tout moment, sans jargon.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">✅</div>
+            <h3>Check-lists guidées</h3>
+            <p>Des démarches décomposées étape par étape avec les documents nécessaires et des tutoriels vidéo.</p>
+        </div>
+    </div>
+
+    <!-- ÉQUIPE -->
+    <h2 class="section-title">L'équipe — Promotion 608, EM Lyon</h2>
+    <div class="team-grid">
+        <div class="team-card">
+            <div class="team-avatar" style="background:linear-gradient(135deg,#c7d2fe,#a5b4fc);color:var(--indigo-dark)">GA</div>
+            <div class="team-name">Gabriel</div>
+            <div class="team-role">Chef d'équipe</div>
+        </div>
+        <div class="team-card">
+            <div class="team-avatar" style="background:linear-gradient(135deg,#bbf7d0,#86efac);color:#166534">NI</div>
+            <div class="team-name">Nicolas</div>
+            <div class="team-role">Marketing</div>
+        </div>
+        <div class="team-card">
+            <div class="team-avatar" style="background:linear-gradient(135deg,#fde68a,#fbbf24);color:#92400e">MW</div>
+            <div class="team-name">Mathieu</div>
+            <div class="team-role">Informatique</div>
+        </div>
+        <div class="team-card">
+            <div class="team-avatar" style="background:linear-gradient(135deg,#fecaca,#f87171);color:#991b1b">JE</div>
+            <div class="team-name">Jérémy</div>
+            <div class="team-role">Finances</div>
+        </div>
+        <div class="team-card">
+            <div class="team-avatar" style="background:linear-gradient(135deg,#e9d5ff,#c084fc);color:#6b21a8">LE</div>
+            <div class="team-name">Léopold</div>
+            <div class="team-role">Commercial</div>
+        </div>
+    </div>
+
+    <!-- TARIFS -->
+    <h2 class="section-title">Nos offres</h2>
+    <div class="pricing-grid">
+        <div class="pricing-card">
+            <div class="pricing-name">Essentiel</div>
+            <div class="pricing-price">9,90€</div>
+            <div class="pricing-sub">par mois · Segment C</div>
+            <div class="pricing-feat">✅ Compte de gestion automatique</div>
+            <div class="pricing-feat">✅ Calendrier + alertes</div>
+            <div class="pricing-feat">✅ Lexique juridique</div>
+            <div class="pricing-feat">✅ Check-lists guidées</div>
+            <div class="pricing-feat">✅ Export PDF conforme</div>
+        </div>
+        <div class="pricing-card featured">
+            <div class="pricing-badge">⭐ Recommandé</div>
+            <div class="pricing-name">Confort</div>
+            <div class="pricing-price">19,90€</div>
+            <div class="pricing-sub">par mois · Segment B</div>
+            <div class="pricing-feat">✅ Tout Essentiel inclus</div>
+            <div class="pricing-feat">✅ Tableau de bord partagé</div>
+            <div class="pricing-feat">✅ Espace multi-utilisateurs</div>
+            <div class="pricing-feat">✅ Historique des décisions</div>
+            <div class="pricing-feat">✅ Assistant IA illimité</div>
+        </div>
+        <div class="pricing-card">
+            <div class="pricing-name">Sérénité</div>
+            <div class="pricing-price">39,90€</div>
+            <div class="pricing-sub">par mois · Cas complexes</div>
+            <div class="pricing-feat">✅ Tout Confort inclus</div>
+            <div class="pricing-feat">✅ Hotline juriste partenaire</div>
+            <div class="pricing-feat">✅ Gestion multi-tutelles</div>
+            <div class="pricing-feat">✅ Alerte renouvellement mesure</div>
+            <div class="pricing-feat">✅ Accompagnement transmission</div>
+        </div>
+    </div>
+
+    <!-- VISION -->
+    <div class="vision-box">
+        <h2>Notre vision</h2>
+        <p>Aucun tuteur familial ne doit rester seul face à la complexité administrative de protéger un proche. Ges'Tut rend la tutelle accessible à tous, quelle que soit la formation, l'âge ou la situation du tuteur.</p>
+    </div>
+
+</div>
+
+<footer>© 2026 Ges'Tut — Équipe 608 · EM Lyon · Léopold · Nicolas · Gabriel · Jérémy · Mathieu</footer>
 </body>
 </html>

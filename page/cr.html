@@ -3,58 +3,401 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Compte rendu de gestion - TutoCare</title>
+    <title>Compte de gestion — Ges'Tut</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../style/styles.css">
+    <style>
+        .page-wrap { padding:28px 40px 40px; max-width:1240px; margin:0 auto; }
+
+        /* RÉSUMÉ FINANCIER */
+        .finance-summary { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:28px; }
+        .finance-card {
+            background:var(--surface); border-radius:var(--radius); border:1px solid var(--border);
+            box-shadow:var(--shadow); padding:20px; text-align:center;
+        }
+        .finance-card .fc-icon { font-size:1.6em; margin-bottom:8px; }
+        .finance-card .fc-amount { font-family:'Sora',sans-serif; font-weight:700; font-size:1.5em; margin-bottom:4px; }
+        .finance-card .fc-label { font-size:0.76em; color:var(--muted); }
+        .fc-amount.green  { color:var(--green); }
+        .fc-amount.red    { color:var(--red); }
+        .fc-amount.indigo { color:var(--indigo); }
+
+        /* LAYOUT 2 COL */
+        .cr-layout { display:grid; grid-template-columns:1fr 340px; gap:24px; }
+
+        /* SAISIE */
+        .saisie-card { background:var(--surface); border-radius:var(--radius); border:1px solid var(--border); box-shadow:var(--shadow); }
+        .saisie-header { padding:18px 22px 14px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
+        .saisie-header h3 { font-family:'Sora',sans-serif; font-weight:700; font-size:1em; }
+        .saisie-body { padding:18px 22px; }
+
+        /* TABLE */
+        .entries-table { width:100%; border-collapse:collapse; font-size:0.83em; }
+        .entries-table th { text-align:left; padding:9px 10px; border-bottom:2px solid var(--border); font-weight:700; font-size:0.78em; color:var(--muted); text-transform:uppercase; letter-spacing:0.5px; }
+        .entries-table td { padding:10px 10px; border-bottom:1px solid var(--border); color:var(--text); }
+        .entries-table tr:last-child td { border-bottom:none; }
+        .entries-table tr:hover td { background:var(--bg); }
+        .type-badge { font-size:0.72em; font-weight:700; padding:2px 8px; border-radius:12px; }
+        .type-recette { background:var(--green-light); color:#166534; }
+        .type-depense { background:var(--red-light); color:var(--red); }
+
+        /* FORM INLINE */
+        .inline-form { display:grid; grid-template-columns:1fr 1fr auto auto auto; gap:8px; align-items:end; padding:14px 0; border-top:1px solid var(--border); margin-top:10px; }
+        .inline-form .form-group { margin-bottom:0; }
+
+        .amount-cell { font-weight:700; font-family:'Sora',sans-serif; }
+        .amount-cell.pos { color:var(--green); }
+        .amount-cell.neg { color:var(--red); }
+
+        /* DELETE BTN */
+        .del-btn { width:28px; height:28px; border:none; background:var(--red-light); border-radius:6px; cursor:pointer; color:var(--red); font-size:0.9em; display:flex; align-items:center; justify-content:center; transition:all 0.18s; }
+        .del-btn:hover { background:var(--red); color:white; }
+
+        /* SYNTHÈSE */
+        .synthese-card { background:var(--surface); border-radius:var(--radius); border:1px solid var(--border); box-shadow:var(--shadow); padding:20px; }
+        .synthese-card h3 { font-family:'Sora',sans-serif; font-weight:700; font-size:0.95em; margin-bottom:16px; }
+        .synthese-row { display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--border); font-size:0.85em; }
+        .synthese-row:last-child { border-bottom:none; }
+        .synthese-row.total { font-weight:700; font-family:'Sora',sans-serif; padding-top:12px; }
+        .synthese-row.total .sr-val { font-size:1.1em; }
+        .sr-label { color:var(--muted); }
+        .sr-val { font-weight:600; }
+
+        /* CHART BARS */
+        .bar-chart { margin-top:16px; }
+        .bar-row { display:flex; align-items:center; gap:10px; margin-bottom:8px; font-size:0.78em; }
+        .bar-label { width:80px; flex-shrink:0; color:var(--muted); }
+        .bar-wrap { flex:1; background:var(--bg); border-radius:20px; height:10px; overflow:hidden; }
+        .bar-fill { height:100%; border-radius:20px; }
+        .bar-val { width:56px; text-align:right; font-weight:600; color:var(--text); flex-shrink:0; }
+
+        /* EXPORT */
+        .export-card { background:linear-gradient(135deg,var(--indigo),var(--indigo-dark)); border-radius:var(--radius); padding:20px; color:white; }
+        .export-card h3 { font-family:'Sora',sans-serif; font-weight:700; font-size:0.95em; margin-bottom:8px; }
+        .export-card p { font-size:0.78em; opacity:0.8; margin-bottom:14px; line-height:1.5; }
+        .export-btn { display:flex; align-items:center; justify-content:center; gap:8px; width:100%; padding:10px; background:rgba(255,255,255,0.2); border:1px solid rgba(255,255,255,0.3); border-radius:10px; color:white; font-size:0.82em; font-weight:600; cursor:pointer; font-family:'DM Sans',sans-serif; transition:background 0.18s; }
+        .export-btn:hover { background:rgba(255,255,255,0.3); }
+
+        /* CATEGORIES */
+        .cat-pills { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px; }
+        .cat-pill { padding:4px 12px; border:1.5px solid var(--border); background:var(--surface); border-radius:20px; font-size:0.74em; font-weight:600; color:var(--muted); cursor:pointer; transition:all 0.18s; }
+        .cat-pill.active { background:var(--indigo-light); color:var(--indigo); border-color:var(--indigo-mid); }
+
+        .section-sep { display:flex; align-items:center; gap:12px; margin:20px 0 14px; }
+        .section-sep span { font-size:0.7em; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.8px; white-space:nowrap; }
+        .section-sep::before,.section-sep::after { content:''; flex:1; height:1px; background:var(--border); }
+    </style>
 </head>
 <body>
-    <nav class="navbar">
-        <a class="nav-brand" href="../index.html">
-            <div class="nav-logo">GC</div>
-            <span class="nav-brand-name">Ges'<span>Tut</span></span>
-        </a>
-        <div class="nav-links">
-            <a href="../index.html">Dashboard</a>
-            <a href="cr.html" class="active">Compte rendu de gestion</a>
-            <a href="calendrier.html">Calendrier</a>
-            <a href="qsn.html">Qui sommes-nous</a>
-        </div>
-        <div class="nav-right">
-            <div class="nav-avatar">MR</div>
-        </div>
-    </nav>
 
-    <div class="report-container">
-        <div class="page-header">
-            <h2>Compte rendu de gestion</h2>
-            <p>Prévisualisation du dossier à remettre au contrôleur de tutelle.</p>
-        </div>
+<nav class="navbar">
+    <a class="nav-brand" href="../index.html">
+        <div class="nav-logo">GT</div>
+        <span class="nav-brand-name">Ges'<span>Tut</span></span>
+    </a>
+    <div class="nav-links">
+        <a href="../index.html"><span class="nav-icon">🏠</span> Dashboard</a>
+        <a href="calendrier.html"><span class="nav-icon">📅</span> Calendrier</a>
+        <a href="cr.html" class="active"><span class="nav-icon">📊</span> Compte de gestion</a>
+        <a href="documents.html"><span class="nav-icon">📁</span> Documents</a>
+        <a href="lexique.html"><span class="nav-icon">📖</span> Lexique</a>
+        <a href="assistant.html"><span class="nav-icon">🤖</span> Assistant IA</a>
+    </div>
+    <div class="nav-right">
+        <div class="nav-notif-btn">🔔 <span class="nav-notif-badge">3</span></div>
+        <div class="nav-avatar">MW</div>
+    </div>
+</nav>
 
-        <!-- Page 1: Informations générales -->
-        <div class="report-page">
-            <h3>Page 1 : Informations générales</h3>
-            <p><strong>Nom du tuteur :</strong> Jean Dupont</p>
-            <p><strong>Pupille :</strong> Marie Martin</p>
-            <p><strong>Période :</strong> Janvier 2023 - Décembre 2023</p>
-        </div>
+<div class="page-wrap">
 
-        <!-- Page 2: Résumé des actions -->
-        <div class="report-page">
-            <h3>Page 2 : Résumé des actions</h3>
-            <ul>
-                <li>Gestion des dépenses courantes : 12 000 €</li>
-                <li>Revenus perçus : 15 000 €</li>
-                <li>Épargne constituée : 3 000 €</li>
-            </ul>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px">
+        <div class="page-header" style="margin-bottom:0">
+            <h2>Compte de gestion annuel</h2>
+            <p>Période : 1er janvier 2026 — 31 décembre 2026 · Marie Martin</p>
         </div>
-
-        <!-- Page 3: Observations -->
-        <div class="report-page">
-            <h3>Page 3 : Observations</h3>
-            <p>La gestion a été réalisée conformément aux obligations légales. Tous les justificatifs sont disponibles sur demande.</p>
+        <div style="display:flex;gap:8px;align-items:center">
+            <select class="form-select" style="width:auto;font-size:0.82em;padding:7px 12px" id="year-select">
+                <option>2026</option><option>2025</option><option>2024</option>
+            </select>
         </div>
     </div>
 
-    <footer>© 2026 Ges'Tut — Plateforme d'accompagnement administratif</footer>
-    
+    <!-- RÉSUMÉ 4 CARTES -->
+    <div class="finance-summary">
+        <div class="finance-card">
+            <div class="fc-icon">📥</div>
+            <div class="fc-amount green" id="total-recettes">18 450 €</div>
+            <div class="fc-label">Recettes totales</div>
+        </div>
+        <div class="finance-card">
+            <div class="fc-icon">📤</div>
+            <div class="fc-amount red" id="total-depenses">16 980 €</div>
+            <div class="fc-label">Dépenses totales</div>
+        </div>
+        <div class="finance-card">
+            <div class="fc-icon">💰</div>
+            <div class="fc-amount indigo" id="solde">+1 470 €</div>
+            <div class="fc-label">Solde de l'année</div>
+        </div>
+        <div class="finance-card">
+            <div class="fc-icon">🏦</div>
+            <div class="fc-amount" style="color:var(--text)">47 320 €</div>
+            <div class="fc-label">Patrimoine total</div>
+        </div>
+    </div>
+
+    <!-- LAYOUT -->
+    <div class="cr-layout">
+
+        <!-- SAISIE -->
+        <div>
+            <!-- CATÉGORIES -->
+            <div class="saisie-card" style="margin-bottom:16px">
+                <div class="saisie-header">
+                    <h3>📋 Toutes les opérations</h3>
+                    <div style="display:flex;gap:6px">
+                        <button class="btn btn-secondary btn-sm" onclick="filterEntries('all')">Tout</button>
+                        <button class="btn btn-success btn-sm" onclick="filterEntries('recette')">Recettes</button>
+                        <button class="btn btn-danger btn-sm" onclick="filterEntries('depense')">Dépenses</button>
+                    </div>
+                </div>
+                <div class="saisie-body">
+                    <table class="entries-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Libellé</th>
+                                <th>Catégorie</th>
+                                <th>Type</th>
+                                <th style="text-align:right">Montant</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="entries-body"></tbody>
+                    </table>
+
+                    <!-- FORMULAIRE AJOUT -->
+                    <div class="section-sep"><span>Ajouter une opération</span></div>
+                    <div class="inline-form">
+                        <div class="form-group">
+                            <label class="form-label">Date</label>
+                            <input class="form-input" type="date" id="new-date" value="2026-04-29">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Libellé</label>
+                            <input class="form-input" type="text" id="new-label" placeholder="Description">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Catégorie</label>
+                            <select class="form-select" id="new-cat">
+                                <option value="Pension">Pension</option>
+                                <option value="AAH">AAH</option>
+                                <option value="APL">APL</option>
+                                <option value="Santé">Santé</option>
+                                <option value="Logement">Logement</option>
+                                <option value="Alimentation">Alimentation</option>
+                                <option value="Transport">Transport</option>
+                                <option value="Divers">Divers</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Type</label>
+                            <select class="form-select" id="new-type">
+                                <option value="recette">Recette</option>
+                                <option value="depense">Dépense</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Montant (€)</label>
+                            <input class="form-input" type="number" id="new-amount" placeholder="0,00" min="0" step="0.01" style="width:100px">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">&nbsp;</label>
+                            <button class="btn btn-primary" onclick="addEntry()">＋ Ajouter</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- COLONNE DROITE -->
+        <div style="display:flex;flex-direction:column;gap:16px">
+
+            <!-- SYNTHÈSE -->
+            <div class="synthese-card">
+                <h3>📊 Synthèse par catégorie</h3>
+                <div id="synthese-content"></div>
+            </div>
+
+            <!-- GRAPHIQUE BARRES -->
+            <div class="synthese-card">
+                <h3>📈 Recettes vs Dépenses</h3>
+                <div class="bar-chart">
+                    <div class="bar-row">
+                        <span class="bar-label">Recettes</span>
+                        <div class="bar-wrap"><div class="bar-fill" id="bar-r" style="background:var(--green);width:100%"></div></div>
+                        <span class="bar-val" id="bv-r">18 450€</span>
+                    </div>
+                    <div class="bar-row">
+                        <span class="bar-label">Dépenses</span>
+                        <div class="bar-wrap"><div class="bar-fill" id="bar-d" style="background:var(--red);width:92%"></div></div>
+                        <span class="bar-val" id="bv-d">16 980€</span>
+                    </div>
+                </div>
+                <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border)">
+                    <div style="display:flex;justify-content:space-between;font-size:0.82em">
+                        <span style="color:var(--muted)">Taux d'épargne estimé</span>
+                        <span style="font-weight:700;color:var(--green)" id="taux-epargne">8%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EXPORT -->
+            <div class="export-card">
+                <h3>📄 Export greffe</h3>
+                <p>Générez le compte de gestion au format PDF conforme au modèle réglementaire du greffe du tribunal.</p>
+                <button class="export-btn" onclick="showToast('📄 Export PDF en cours de génération…')">
+                    ⬇ Télécharger le PDF conforme
+                </button>
+                <button class="export-btn" style="margin-top:8px" onclick="showToast('📧 Rapport envoyé par e-mail')">
+                    📧 Envoyer par e-mail
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<footer>© 2026 Ges'Tut — Plateforme d'accompagnement administratif</footer>
+<div class="toast" id="toast"></div>
+
+<script>
+// ── DONNÉES INITIALES ──
+let entries = [
+    { id:1, date:'2026-01-05', label:'Pension de retraite', cat:'Pension',     type:'recette', amount:1200 },
+    { id:2, date:'2026-01-05', label:'AAH mensuelle',       cat:'AAH',         type:'recette', amount: 971 },
+    { id:3, date:'2026-01-10', label:'APL logement',        cat:'APL',         type:'recette', amount: 350 },
+    { id:4, date:'2026-01-15', label:'Loyer résidence',     cat:'Logement',    type:'depense', amount: 820 },
+    { id:5, date:'2026-01-20', label:'Pharmacie Jan.',      cat:'Santé',       type:'depense', amount: 145 },
+    { id:6, date:'2026-02-05', label:'Pension de retraite', cat:'Pension',     type:'recette', amount:1200 },
+    { id:7, date:'2026-02-05', label:'AAH mensuelle',       cat:'AAH',         type:'recette', amount: 971 },
+    { id:8, date:'2026-02-10', label:'APL logement',        cat:'APL',         type:'recette', amount: 350 },
+    { id:9, date:'2026-02-15', label:'Loyer résidence',     cat:'Logement',    type:'depense', amount: 820 },
+    { id:10,date:'2026-02-22', label:'Facture EDF',         cat:'Logement',    type:'depense', amount:  87.4 },
+    { id:11,date:'2026-03-05', label:'Pension de retraite', cat:'Pension',     type:'recette', amount:1200 },
+    { id:12,date:'2026-03-05', label:'AAH mensuelle',       cat:'AAH',         type:'recette', amount: 971 },
+    { id:13,date:'2026-03-10', label:'APL logement',        cat:'APL',         type:'recette', amount: 350 },
+    { id:14,date:'2026-03-15', label:'Loyer résidence',     cat:'Logement',    type:'depense', amount: 820 },
+    { id:15,date:'2026-03-18', label:'Consultation Dr. Leblanc', cat:'Santé', type:'depense', amount:  25 },
+    { id:16,date:'2026-04-05', label:'Pension de retraite', cat:'Pension',     type:'recette', amount:1200 },
+    { id:17,date:'2026-04-05', label:'AAH mensuelle',       cat:'AAH',         type:'recette', amount: 971 },
+    { id:18,date:'2026-04-10', label:'APL logement',        cat:'APL',         type:'recette', amount: 350 },
+    { id:19,date:'2026-04-15', label:'Loyer résidence',     cat:'Logement',    type:'depense', amount: 820 },
+    { id:20,date:'2026-04-20', label:'Courses alimentaires', cat:'Alimentation',type:'depense',amount: 210 },
+];
+let nextId = 21;
+let filter = 'all';
+
+function fmt(n) { return n.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2}) + ' €'; }
+
+function renderEntries() {
+    const tbody = document.getElementById('entries-body');
+    const filtered = filter === 'all' ? entries : entries.filter(e => e.type === filter);
+    const months = ['jan.','fév.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'];
+
+    tbody.innerHTML = filtered.map(e => {
+        const d = new Date(e.date + 'T00:00:00');
+        const dateStr = `${d.getDate()} ${months[d.getMonth()]}`;
+        const amountClass = e.type === 'recette' ? 'pos' : 'neg';
+        const sign = e.type === 'recette' ? '+' : '-';
+        return `<tr>
+            <td style="color:var(--muted)">${dateStr}</td>
+            <td>${e.label}</td>
+            <td><span class="type-badge" style="background:var(--bg);color:var(--muted)">${e.cat}</span></td>
+            <td><span class="type-badge ${e.type === 'recette' ? 'type-recette' : 'type-depense'}">${e.type === 'recette' ? 'Recette' : 'Dépense'}</span></td>
+            <td class="amount-cell ${amountClass}" style="text-align:right">${sign}${fmt(e.amount)}</td>
+            <td><button class="del-btn" onclick="deleteEntry(${e.id})">✕</button></td>
+        </tr>`;
+    }).join('');
+}
+
+function addEntry() {
+    const date = document.getElementById('new-date').value;
+    const label = document.getElementById('new-label').value.trim();
+    const cat = document.getElementById('new-cat').value;
+    const type = document.getElementById('new-type').value;
+    const amount = parseFloat(document.getElementById('new-amount').value);
+    if (!date || !label || isNaN(amount) || amount <= 0) { showToast('⚠️ Remplissez tous les champs'); return; }
+    entries.push({ id: nextId++, date, label, cat, type, amount });
+    entries.sort((a,b) => a.date.localeCompare(b.date));
+    document.getElementById('new-label').value = '';
+    document.getElementById('new-amount').value = '';
+    renderAll();
+    showToast(`✅ Opération "${label}" ajoutée`);
+}
+
+function deleteEntry(id) {
+    entries = entries.filter(e => e.id !== id);
+    renderAll();
+    showToast('🗑 Opération supprimée');
+}
+
+function filterEntries(f) { filter = f; renderEntries(); }
+
+function renderSynthese() {
+    const recettes = entries.filter(e => e.type==='recette').reduce((s,e) => s+e.amount, 0);
+    const depenses = entries.filter(e => e.type==='depense').reduce((s,e) => s+e.amount, 0);
+    const solde = recettes - depenses;
+
+    document.getElementById('total-recettes').textContent = fmt(recettes);
+    document.getElementById('total-depenses').textContent = fmt(depenses);
+    document.getElementById('solde').textContent = (solde >= 0 ? '+' : '') + fmt(Math.abs(solde));
+    document.getElementById('solde').style.color = solde >= 0 ? 'var(--green)' : 'var(--red)';
+
+    // Bars
+    const maxVal = Math.max(recettes, depenses);
+    document.getElementById('bar-r').style.width = (recettes/maxVal*100) + '%';
+    document.getElementById('bar-d').style.width = (depenses/maxVal*100) + '%';
+    document.getElementById('bv-r').textContent = Math.round(recettes).toLocaleString('fr-FR') + '€';
+    document.getElementById('bv-d').textContent = Math.round(depenses).toLocaleString('fr-FR') + '€';
+
+    const taux = recettes > 0 ? Math.round((solde/recettes)*100) : 0;
+    document.getElementById('taux-epargne').textContent = taux + '%';
+    document.getElementById('taux-epargne').style.color = taux >= 0 ? 'var(--green)' : 'var(--red)';
+
+    // Synthèse par catégorie
+    const cats = {};
+    entries.forEach(e => {
+        if (!cats[e.cat]) cats[e.cat] = { recettes:0, depenses:0 };
+        if (e.type === 'recette') cats[e.cat].recettes += e.amount;
+        else cats[e.cat].depenses += e.amount;
+    });
+
+    const content = document.getElementById('synthese-content');
+    content.innerHTML = Object.entries(cats).map(([cat, v]) => `
+        <div class="synthese-row">
+            <span class="sr-label">${cat}</span>
+            <div style="text-align:right">
+                ${v.recettes > 0 ? `<span style="color:var(--green);font-weight:600;font-size:0.82em">+${Math.round(v.recettes).toLocaleString('fr-FR')}€</span>` : ''}
+                ${v.depenses > 0 ? `<span style="color:var(--red);font-weight:600;font-size:0.82em;margin-left:6px">-${Math.round(v.depenses).toLocaleString('fr-FR')}€</span>` : ''}
+            </div>
+        </div>`).join('') + `
+        <div class="synthese-row total">
+            <span>Solde</span>
+            <span class="sr-val" style="color:${solde>=0?'var(--green)':'var(--red)'}">${solde>=0?'+':''}${fmt(Math.abs(solde))}</span>
+        </div>`;
+}
+
+function renderAll() { renderEntries(); renderSynthese(); }
+renderAll();
+
+function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3500);
+}
+</script>
 </body>
 </html>

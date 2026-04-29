@@ -1,266 +1,381 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ges'Tut</title>
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style/styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Dashboard — Ges'Tut</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style/styles.css">
+<style>
+.hero{
+  background:linear-gradient(135deg,#4f46e5 0%,#3730a3 100%);
+  border-radius:var(--radius-lg);padding:22px 26px;color:white;
+  margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;gap:16px;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;top:-40px;right:-40px;
+  width:200px;height:200px;border-radius:50%;
+  background:rgba(255,255,255,.06);
+}
+.hero::after{
+  content:'';position:absolute;bottom:-60px;right:80px;
+  width:140px;height:140px;border-radius:50%;
+  background:rgba(255,255,255,.04);
+}
+.hero-text h2{font-family:'Sora',sans-serif;font-weight:700;font-size:1.25em;margin-bottom:4px}
+.hero-text p{font-size:.82em;opacity:.8;line-height:1.5}
+.hero-badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.hero-chip{
+  background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);
+  border-radius:20px;padding:3px 10px;font-size:.72em;font-weight:600;
+}
+.hero-stat{
+  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);
+  border-radius:12px;padding:12px 16px;text-align:center;flex-shrink:0;z-index:1;
+}
+.hero-stat .hn{font-family:'Sora',sans-serif;font-weight:700;font-size:2em;display:block;line-height:1}
+.hero-stat .hl{font-size:.7em;opacity:.75;margin-top:3px}
+
+.filter-bar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.filter-pill{
+  padding:5px 13px;border:1.5px solid var(--border);background:var(--surface);
+  border-radius:20px;font-size:.76em;font-weight:600;color:var(--muted);
+  cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;
+}
+.filter-pill.active,.filter-pill:hover{background:var(--indigo-light);color:var(--indigo);border-color:var(--indigo-mid)}
+
+.echéance-row{display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px solid var(--border)}
+.echéance-row:last-child{border-bottom:none}
+.echo-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.echo-label{flex:1;font-size:.8em;color:var(--text);font-weight:500}
+.echo-j{font-weight:700;font-size:.8em}
+
+.pupille-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);
+}
+.pupille-avatar{
+  width:44px;height:44px;
+  background:linear-gradient(135deg,#fde68a,#fbbf24);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-weight:700;color:#92400e;font-size:.95em;margin-bottom:9px;
+}
+.pupille-name{font-family:'Sora',sans-serif;font-weight:700;font-size:.97em}
+.pupille-meta{font-size:.76em;color:var(--muted);margin-top:1px;line-height:1.5}
+.pupille-tags{display:flex;gap:5px;margin-top:8px;flex-wrap:wrap}
+</style>
 </head>
 <body>
 
-<!-- NAVBAR -->
 <nav class="navbar">
-    <a class="nav-brand" href="#">
-        <div class="nav-logo">GT</div>
-        <span class="nav-brand-name">Ges'<span>Tut</span></span>
-    </a>
-
-    <div class="nav-links">
-        <a href="#" class="active">Dashboard</a>
-        <a href="page/cr.html">Compte rendu de gestion</a>
-        <a href="page/calendrier.html">Calendrier</a>
-        <a href="page/qsn.html">Qui sommes-nous</a>
-    </div>
-
-    <div class="nav-right">
-        <div class="nav-avatar">MW</div>
-    </div>
+  <a class="nav-brand" href="index.html">
+    <div class="nav-logo">GT</div>
+    <span class="nav-brand-name">Ges'<span>Tut</span></span>
+  </a>
+  <div class="nav-links">
+    <a href="index.html" class="active"><span class="nav-icon">🏠</span>Dashboard</a>
+    <a href="page/calendrier.html"><span class="nav-icon">📅</span>Calendrier</a>
+    <a href="page/cr.html"><span class="nav-icon">📊</span>Compte de gestion</a>
+    <a href="page/documents.html"><span class="nav-icon">📁</span>Documents</a>
+    <a href="page/lexique.html"><span class="nav-icon">📖</span>Lexique</a>
+    <a href="page/assistant.html"><span class="nav-icon">🤖</span>Assistant IA</a>
+    <a href="page/qsn.html"><span class="nav-icon">ℹ️</span>À propos</a>
+  </div>
+  <div class="nav-right">
+    <div class="nav-icon-btn" onclick="showToast('🔔 3 alertes actives — CAF urgente dans 7 jours')">🔔<span class="nav-badge">3</span></div>
+    <div class="nav-avatar" title="Mathieu Willem">MW</div>
+  </div>
 </nav>
 
-<!-- MAIN -->
-<div class="container">
+<div class="page-container">
 
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-text">
+      <h2>Bonjour, Mathieu 👋</h2>
+      <p>Vous êtes tuteur de <strong>Marie Martin</strong> depuis janvier 2023.<br>Tout est sous contrôle — restez vigilant sur les 3 alertes actives.</p>
+      <div class="hero-badges">
+        <span class="hero-chip">Tutelle complète</span>
+        <span class="hero-chip">✓ Compte 2025 remis</span>
+        <span class="hero-chip">⚠️ CAF urgente</span>
+      </div>
+    </div>
+    <div style="display:flex;gap:10px;flex-shrink:0;z-index:1">
+      <div class="hero-stat"><span class="hn">246</span><div class="hl">jours avant<br>prochain CdG</div></div>
+      <div class="hero-stat"><span class="hn">3</span><div class="hl">alertes<br>actives</div></div>
+    </div>
+  </div>
+
+  <!-- ALERTE -->
+  <div class="alert-banner red">⚠️ <span><strong>Urgent :</strong> Déclaration trimestrielle CAF à réaliser avant le <strong>6 mai 2026</strong> — <a href="page/calendrier.html" style="color:inherit;font-weight:700;text-decoration:underline">Voir le calendrier →</a></span></div>
+
+  <!-- STATS -->
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-icon-wrap" style="background:var(--green-light)">✅</div>
+      <div class="stat-info"><div class="stat-num" id="count-done">0</div><div class="stat-label">Tâches complétées</div></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon-wrap" style="background:var(--red-light)">⏳</div>
+      <div class="stat-info"><div class="stat-num" id="count-left">5</div><div class="stat-label">Tâches restantes</div></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon-wrap" style="background:var(--amber-light)">⚠️</div>
+      <div class="stat-info"><div class="stat-num">3</div><div class="stat-label">Alertes actives</div></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon-wrap" style="background:var(--indigo-light)">📅</div>
+      <div class="stat-info"><div class="stat-num">J-7</div><div class="stat-label">Prochaine échéance</div></div>
+    </div>
+  </div>
+
+  <div class="two-col">
     <!-- LEFT -->
     <div class="left">
+      <div class="page-header" style="margin-bottom:14px">
+        <h2>Mes démarches en cours</h2>
+        <p>Suivez chaque étape pas à pas — documents, délais, tutoriels inclus.</p>
+      </div>
 
-        <div class="page-header">
-            <h2>Mes démarches</h2>
-            <p>Suivez et complétez vos démarches administratives étape par étape.</p>
+      <div class="filter-bar">
+        <button class="filter-pill active" onclick="filterTasks('all',this)">Toutes (5)</button>
+        <button class="filter-pill" onclick="filterTasks('urgent',this)">🔴 Urgentes (1)</button>
+        <button class="filter-pill" onclick="filterTasks('soon',this)">🟡 Bientôt (1)</button>
+        <button class="filter-pill" onclick="filterTasks('normal',this)">🔵 Planifiées (3)</button>
+      </div>
+
+      <!-- TASK 1 -->
+      <div class="task" data-priority="urgent">
+        <div class="task-header">
+          <div class="task-priority" style="background:var(--red)"></div>
+          <input class="task-checkbox" type="checkbox">
+          <span class="task-title">Déclaration trimestrielle CAF</span>
+          <span class="badge badge-red">Urgent</span>
+          <span class="task-meta">📅 6 mai 2026</span>
+          <span class="task-chevron">▼</span>
         </div>
+        <div class="task-content"><div class="task-body">
+          <p class="task-desc">Permet de maintenir les droits APL et RSA de Marie. À faire tous les 3 mois sur caf.fr avec le numéro allocataire.</p>
+          <div class="task-steps">
+            <div class="task-step"><div class="step-num">1</div><span>Se connecter sur <strong>caf.fr</strong> avec le numéro allocataire de Marie</span></div>
+            <div class="task-step"><div class="step-num">2</div><span>Accéder à "Déclarer mes ressources" dans l'espace personnel</span></div>
+            <div class="task-step"><div class="step-num">3</div><span>Renseigner les revenus du trimestre écoulé (bulletins de salaire / Pôle Emploi)</span></div>
+            <div class="task-step"><div class="step-num">4</div><span>Valider et conserver le récépissé de déclaration dans <a href="page/documents.html" style="color:var(--indigo)">Documents</a></span></div>
+          </div>
+          <div class="task-docs"><strong>📎 Documents nécessaires</strong>Bulletins de salaire · Relevés Pôle Emploi · Numéro allocataire CAF</div>
+          <div class="video-wrapper" data-video-id="kMsBdCPCi3Q"><div class="video-icon">▶</div><span class="video-label">Tutoriel vidéo — Cliquez pour lancer</span></div>
+        </div></div>
+      </div>
 
-        <!-- TASK 1 -->
-        <div class="task">
-            <div class="task-header">
-                <input class="task-checkbox" type="checkbox">
-                <span class="task-title">Déclarer CAF</span>
-                <span class="badge urgent">Urgent</span>
-                <span class="chevron">▼</span>
-            </div>
-            <div class="task-content">
-                <div class="task-body">
-                    <p class="task-description">
-                        La déclaration trimestrielle CAF permet de mettre à jour vos ressources et de maintenir vos droits aux aides (APL, RSA…). 
-                        Elle doit être effectuée tous les 3 mois. Munissez-vous de vos bulletins de salaire ou relevés Pôle Emploi avant de commencer.
-                    </p>
-                    <div class="video-wrapper" data-video-id="kMsBdCPCi3Q">
-                        <div class="video-icon">▶</div>
-                        <span class="video-label">Tutoriel vidéo — Cliquez pour lancer</span>
-                    </div>
-                </div>
-            </div>
+      <!-- TASK 2 -->
+      <div class="task" data-priority="soon">
+        <div class="task-header">
+          <div class="task-priority" style="background:var(--amber)"></div>
+          <input class="task-checkbox" type="checkbox">
+          <span class="task-title">Renouveler le dossier MDPH</span>
+          <span class="badge badge-amber">Bientôt</span>
+          <span class="task-meta">📅 20 mai 2026</span>
+          <span class="task-chevron">▼</span>
         </div>
+        <div class="task-content"><div class="task-body">
+          <p class="task-desc">Le dossier MDPH expire le 20 mai. Sans renouvellement, Marie perd ses droits AAH, PCH et carte mobilité.</p>
+          <div class="task-steps">
+            <div class="task-step"><div class="step-num">1</div><span>Télécharger le Cerfa 15692 sur <strong>mdph.fr</strong></span></div>
+            <div class="task-step"><div class="step-num">2</div><span>Faire signer le certificat médical Cerfa 13878 par le médecin traitant</span></div>
+            <div class="task-step"><div class="step-num">3</div><span>Joindre justificatif de domicile &lt; 3 mois + pièces d'identité tuteur et pupille</span></div>
+            <div class="task-step"><div class="step-num">4</div><span>Déposer ou envoyer le dossier complet à la MDPH de votre département</span></div>
+          </div>
+          <div class="task-docs"><strong>📎 Documents nécessaires</strong>Cerfa 15692 · Cerfa 13878 (médecin) · Justificatif domicile · CNI tuteur + pupille</div>
+          <div class="video-wrapper" data-video-id="kMsBdCPCi3Q"><div class="video-icon">▶</div><span class="video-label">Tutoriel vidéo — Cliquez pour lancer</span></div>
+        </div></div>
+      </div>
 
-        <!-- TASK 2 -->
-        <div class="task">
-            <div class="task-header">
-                <input class="task-checkbox" type="checkbox">
-                <span class="task-title">Payer factures</span>
-                <span class="badge soon">Bientôt</span>
-                <span class="chevron">▼</span>
-            </div>
-            <div class="task-content">
-                <div class="task-body">
-                    <p class="task-description">
-                        Réglez vos factures d'énergie, de téléphone ou d'eau avant la date d'échéance pour éviter les pénalités. 
-                        Vous pouvez payer en ligne via le site de chaque prestataire ou utiliser un virement bancaire depuis votre espace client.
-                    </p>
-                    <div class="video-wrapper" data-video-id="kMsBdCPCi3Q">
-                        <div class="video-icon">▶</div>
-                        <span class="video-label">Tutoriel vidéo — Cliquez pour lancer</span>
-                    </div>
-                </div>
-            </div>
+      <!-- TASK 3 -->
+      <div class="task" data-priority="normal">
+        <div class="task-header">
+          <div class="task-priority" style="background:var(--blue)"></div>
+          <input class="task-checkbox" type="checkbox">
+          <span class="task-title">Transmettre le compte rendu médical</span>
+          <span class="task-meta">📅 28 mai 2026</span>
+          <span class="task-chevron">▼</span>
         </div>
+        <div class="task-content"><div class="task-body">
+          <p class="task-desc">Le compte rendu de la dernière consultation cardiologue doit être transmis au médecin traitant de Marie.</p>
+          <div class="task-steps">
+            <div class="task-step"><div class="step-num">1</div><span>Récupérer le compte rendu auprès du cardiologue Dr. Leblanc</span></div>
+            <div class="task-step"><div class="step-num">2</div><span>En transmettre une copie au médecin traitant</span></div>
+            <div class="task-step"><div class="step-num">3</div><span>Conserver l'original dans <a href="page/documents.html" style="color:var(--indigo)">Documents → Santé</a></span></div>
+          </div>
+        </div></div>
+      </div>
 
-        <!-- TASK 3 -->
-        <div class="task">
-            <div class="task-header">
-                <input class="task-checkbox" type="checkbox">
-                <span class="task-title">Compte rendu médical</span>
-                <span class="chevron">▼</span>
-            </div>
-            <div class="task-content">
-                <div class="task-body">
-                    <p class="task-description">
-                        Transmettez le compte rendu de la dernière consultation à votre médecin traitant ou à votre mutuelle. 
-                        Ce document peut être nécessaire pour le suivi de votre dossier de santé et le remboursement de certains soins.
-                    </p>
-                    <div class="video-wrapper" data-video-id="kMsBdCPCi3Q">
-                        <div class="video-icon">▶</div>
-                        <span class="video-label">Tutoriel vidéo — Cliquez pour lancer</span>
-                    </div>
-                </div>
-            </div>
+      <!-- TASK 4 -->
+      <div class="task" data-priority="normal">
+        <div class="task-header">
+          <div class="task-priority" style="background:var(--blue)"></div>
+          <input class="task-checkbox" type="checkbox">
+          <span class="task-title">Vérifier les remboursements Ameli</span>
+          <span class="task-meta">📅 Mai 2026</span>
+          <span class="task-chevron">▼</span>
         </div>
+        <div class="task-content"><div class="task-body">
+          <p class="task-desc">Contrôler l'état des remboursements Sécurité Sociale de Marie pour les soins des 3 derniers mois.</p>
+          <div class="task-steps">
+            <div class="task-step"><div class="step-num">1</div><span>Se connecter sur <strong>ameli.fr</strong> avec les identifiants de Marie</span></div>
+            <div class="task-step"><div class="step-num">2</div><span>Vérifier l'onglet "Mes remboursements" — signaler toute anomalie</span></div>
+            <div class="task-step"><div class="step-num">3</div><span>En cas de non-remboursement sous 10 jours, contacter la CPAM</span></div>
+          </div>
+        </div></div>
+      </div>
 
-        <!-- TASK 4 -->
-        <div class="task">
-            <div class="task-header">
-                <input class="task-checkbox" type="checkbox">
-                <span class="task-title">Renouveler MDPH</span>
-                <span class="chevron">▼</span>
-            </div>
-            <div class="task-content">
-                <div class="task-body">
-                    <p class="task-description">
-                        Le dossier MDPH (Maison Départementale des Personnes Handicapées) doit être renouvelé périodiquement pour continuer à bénéficier 
-                        de vos droits (AAH, PCH, carte mobilité…). Rassemblez certificat médical, justificatif de domicile et formulaire Cerfa avant de déposer votre dossier.
-                    </p>
-                    <div class="video-wrapper" data-video-id="kMsBdCPCi3Q">
-                        <div class="video-icon">▶</div>
-                        <span class="video-label">Tutoriel vidéo — Cliquez pour lancer</span>
-                    </div>
-                </div>
-            </div>
+      <!-- TASK 5 -->
+      <div class="task" data-priority="normal">
+        <div class="task-header">
+          <div class="task-priority" style="background:var(--indigo)"></div>
+          <input class="task-checkbox" type="checkbox">
+          <span class="task-title">Préparer le compte de gestion 2026</span>
+          <span class="task-meta">📅 31 déc. 2026</span>
+          <span class="task-chevron">▼</span>
         </div>
-
-        <!-- TASK 5 -->
-        <div class="task">
-            <div class="task-header">
-                <input class="task-checkbox" type="checkbox">
-                <span class="task-title">Remboursements santé</span>
-                <span class="chevron">▼</span>
-            </div>
-            <div class="task-content">
-                <div class="task-body">
-                    <p class="task-description">
-                        Vérifiez l'état de vos remboursements Sécurité Sociale et mutuelle depuis votre espace Ameli. 
-                        En cas d'absence de remboursement sous 10 jours, pensez à vérifier que votre médecin est bien en secteur conventionné et que votre feuille de soins a été correctement traitée.
-                    </p>
-                    <div class="video-wrapper" data-video-id="kMsBdCPCi3Q">
-                        <div class="video-icon">▶</div>
-                        <span class="video-label">Tutoriel vidéo — Cliquez pour lancer</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+        <div class="task-content"><div class="task-body">
+          <p class="task-desc">Obligation annuelle centrale du tuteur : le compte de gestion doit être remis au greffe avant le 31 décembre. Commencez dès maintenant à rassembler vos justificatifs.</p>
+          <div class="task-steps">
+            <div class="task-step"><div class="step-num">1</div><span>Rassembler tous les relevés bancaires de l'année (recettes et dépenses)</span></div>
+            <div class="task-step"><div class="step-num">2</div><span>Saisir les opérations dans <a href="page/cr.html" style="color:var(--indigo)">Compte de gestion</a></span></div>
+            <div class="task-step"><div class="step-num">3</div><span>Classer tous les justificatifs de dépenses dans <a href="page/documents.html" style="color:var(--indigo)">Documents</a></span></div>
+            <div class="task-step"><div class="step-num">4</div><span>Générer l'export PDF conforme et remettre au greffe avant le 31 décembre</span></div>
+          </div>
+          <div class="task-docs"><strong>📎 Documents nécessaires</strong>Relevés bancaires · Justificatifs dépenses · Certificat médical annuel · Inventaire actualisé</div>
+          <div class="video-wrapper" data-video-id="kMsBdCPCi3Q"><div class="video-icon">▶</div><span class="video-label">Tutoriel vidéo — Cliquez pour lancer</span></div>
+        </div></div>
+      </div>
     </div>
 
     <!-- RIGHT -->
     <div class="right">
 
-        <div class="stats-row">
-            <div class="stat">
-                <div class="stat-number" id="count-done">0</div>
-                <div class="stat-label">Complétées</div>
-            </div>
-            <div class="stat">
-                <div class="stat-number" id="count-left">5</div>
-                <div class="stat-label">Restantes</div>
-            </div>
+      <!-- PUPILLE -->
+      <div class="pupille-card">
+        <div class="pupille-avatar">MM</div>
+        <div class="pupille-name">Marie Martin</div>
+        <div class="pupille-meta">Née le 12/03/1958 · 68 ans<br>Tutelle complète depuis janvier 2023<br>Tribunal judiciaire de Paris</div>
+        <div class="pupille-tags">
+          <span class="badge badge-blue">AAH 971€</span>
+          <span class="badge badge-purple">MDPH</span>
+          <span class="badge badge-green">APL 350€</span>
         </div>
+      </div>
 
-        <div class="card">
-            <h3>Progression globale</h3>
-
-            <div class="chart-container">
-                <svg viewBox="0 0 100 100">
-                    <circle class="bg" cx="50" cy="50" r="40"></circle>
-                    <circle class="progress" cx="50" cy="50" r="40"
-                        stroke-dasharray="251"
-                        stroke-dashoffset="251"></circle>
-                </svg>
-                <div class="center-text" id="percent">0%</div>
-            </div>
-
-            <div class="suggestion-box">
-                <strong>Prochaine étape</strong>
-                <span id="suggestion">Déclarer CAF</span>
-            </div>
-
-            <div class="notification" id="notif">
-                Il vous reste 5 tâches à compléter
-            </div>
+      <!-- PROGRESSION -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">📈 Progression du mois</span>
+          <span class="badge badge-gray" id="prog-badge">0 / 5</span>
         </div>
+        <div class="progress-bar-wrap" style="margin-bottom:7px">
+          <div class="progress-bar-fill" id="progress-bar" style="width:0%"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:.72em;color:var(--muted);margin-bottom:14px">
+          <span id="prog-left">0 complétée</span><span id="prog-pct">0%</span>
+        </div>
+        <div class="suggestion-box">
+          <strong>Prochaine étape</strong>
+          <span id="suggestion">Déclaration trimestrielle CAF</span>
+        </div>
+        <div class="notification-box" id="notif">Il vous reste 5 tâches à compléter</div>
+      </div>
+
+      <!-- ÉCHÉANCES -->
+      <div class="card">
+        <div class="card-header"><span class="card-title">⏰ Prochaines échéances</span></div>
+        <div class="echéance-row"><div class="echo-dot" style="background:var(--red)"></div><span class="echo-label">Déclaration CAF</span><span class="echo-j" style="color:var(--red)">J-7</span></div>
+        <div class="echéance-row"><div class="echo-dot" style="background:var(--amber)"></div><span class="echo-label">Renouvellement MDPH</span><span class="echo-j" style="color:var(--amber)">J-21</span></div>
+        <div class="echéance-row"><div class="echo-dot" style="background:var(--indigo)"></div><span class="echo-label">Remboursements santé</span><span class="echo-j" style="color:var(--indigo)">J-29</span></div>
+        <div class="echéance-row"><div class="echo-dot" style="background:var(--indigo)"></div><span class="echo-label">Compte de gestion annuel</span><span class="echo-j" style="color:var(--indigo)">J-246</span></div>
+        <a href="page/calendrier.html" style="display:block;text-align:center;margin-top:11px;font-size:.78em;color:var(--indigo);font-weight:600;text-decoration:none">Voir le calendrier complet →</a>
+      </div>
+
+      <!-- ACCÈS RAPIDES -->
+      <div class="card">
+        <div class="card-header"><span class="card-title">🚀 Accès rapides</span></div>
+        <div class="quick-actions">
+          <a href="page/cr.html" class="quick-action"><span class="qa-icon">📊</span>Compte de gestion</a>
+          <a href="page/documents.html" class="quick-action"><span class="qa-icon">📁</span>Documents</a>
+          <a href="page/lexique.html" class="quick-action"><span class="qa-icon">📖</span>Lexique</a>
+          <a href="page/assistant.html" class="quick-action"><span class="qa-icon">🤖</span>Assistant IA</a>
+        </div>
+      </div>
+
+      <!-- ACTIVITÉ -->
+      <div class="card">
+        <div class="card-header"><span class="card-title">📋 Activité récente</span></div>
+        <div class="activity-item"><div class="activity-dot" style="background:var(--green)"></div><span class="activity-text">Compte rendu médical transmis au Dr. Martin</span><span class="activity-time">2j</span></div>
+        <div class="activity-item"><div class="activity-dot" style="background:var(--indigo)"></div><span class="activity-text">Document ajouté : Ordonnance Dr. Leblanc</span><span class="activity-time">5j</span></div>
+        <div class="activity-item"><div class="activity-dot" style="background:var(--amber)"></div><span class="activity-text">Alerte : MDPH expire dans 21 jours</span><span class="activity-time">7j</span></div>
+        <div class="activity-item"><div class="activity-dot" style="background:var(--green)"></div><span class="activity-text">Facture EDF réglée — 87,40 €</span><span class="activity-time">10j</span></div>
+        <div class="activity-item"><div class="activity-dot" style="background:var(--blue)"></div><span class="activity-text">AAH créditée — 971,37 €</span><span class="activity-time">14j</span></div>
+      </div>
 
     </div>
-
+  </div>
 </div>
 
-<footer>© 2026 Ges'Tut — Plateforme d'accompagnement administratif</footer>
+<footer>© 2026 Ges'Tut — Plateforme d'accompagnement pour tuteurs familiaux</footer>
+<div class="toast" id="toast"></div>
 
 <script>
-const checkboxes = document.querySelectorAll(".task-checkbox");
-const progressCircle = document.querySelector(".progress");
-const percentText = document.getElementById("percent");
-const notif = document.getElementById("notif");
-const suggestion = document.getElementById("suggestion");
-const countDone = document.getElementById("count-done");
-const countLeft = document.getElementById("count-left");
-const total = checkboxes.length;
-const circumference = 251;
+const checkboxes=document.querySelectorAll('.task-checkbox');
+const total=checkboxes.length;
 
-function update() {
-    const checked = document.querySelectorAll(".task-checkbox:checked").length;
-    const percent = checked / total;
+function update(){
+  const done=document.querySelectorAll('.task-checkbox:checked').length;
+  const pct=Math.round(done/total*100);
+  document.getElementById('progress-bar').style.width=pct+'%';
+  document.getElementById('prog-pct').textContent=pct+'%';
+  document.getElementById('prog-left').textContent=done+' complétée'+(done>1?'s':'');
+  document.getElementById('prog-badge').textContent=done+' / '+total;
+  document.getElementById('count-done').textContent=done;
+  document.getElementById('count-left').textContent=total-done;
+  document.getElementById('notif').textContent=done===total?'🎉 Toutes les tâches sont complétées !':'Il vous reste '+(total-done)+' tâche'+(total-done>1?'s':'')+' à compléter';
+  const colors=['linear-gradient(90deg,#4f46e5,#818cf8)','linear-gradient(90deg,#ef4444,#f87171)','linear-gradient(90deg,#f59e0b,#fbbf24)','linear-gradient(90deg,#22c55e,#4ade80)'];
+  const gi=pct===100?3:pct>=60?2:pct>=30?1:0;
+  document.getElementById('progress-bar').style.background=colors[gi];
+  const first=[...checkboxes].find(c=>!c.checked);
+  document.getElementById('suggestion').textContent=first?first.closest('.task').querySelector('.task-title').textContent.trim():'✅ Toutes complétées !';
+  checkboxes.forEach(c=>c.closest('.task').classList.toggle('done',c.checked));
+}
+checkboxes.forEach(c=>c.addEventListener('change',update));
 
-    progressCircle.style.strokeDashoffset = circumference * (1 - percent);
-    percentText.textContent = Math.round(percent * 100) + "%";
-    countDone.textContent = checked;
-    countLeft.textContent = total - checked;
-    notif.textContent = checked === total
-        ? "🎉 Toutes les tâches sont complétées !"
-        : `Il vous reste ${total - checked} tâche${total - checked > 1 ? "s" : ""} à compléter`;
+document.querySelectorAll('.task-header').forEach(h=>{
+  h.addEventListener('click',e=>{
+    if(e.target.classList.contains('task-checkbox'))return;
+    const t=h.closest('.task'),c=h.nextElementSibling,open=t.classList.contains('open');
+    document.querySelectorAll('.task').forEach(x=>{x.classList.remove('open');x.querySelector('.task-content').style.maxHeight=null});
+    if(!open){t.classList.add('open');c.style.maxHeight=c.scrollHeight+'px'}
+  });
+});
 
-    progressCircle.style.stroke = percent === 0 ? "#4f46e5" : percent < 0.5 ? "#ef4444" : percent < 1 ? "#f59e0b" : "#22c55e";
+document.querySelectorAll('.video-wrapper').forEach(w=>{
+  w.addEventListener('click',()=>{
+    const f=document.createElement('iframe');
+    f.src='https://www.youtube-nocookie.com/embed/'+w.dataset.videoId+'?autoplay=1';
+    f.className='video-frame';f.allow='accelerometer; autoplay; clipboard-write; encrypted-media';f.allowFullscreen=true;
+    w.innerHTML='';w.appendChild(f);
+  });
+});
 
-    const firstUnchecked = [...checkboxes].find(cb => !cb.checked);
-    if (firstUnchecked) {
-        const title = firstUnchecked.closest(".task").querySelector(".task-title");
-        suggestion.textContent = title.textContent.trim();
-    } else {
-        suggestion.textContent = "Toutes les étapes sont complétées !";
-    }
+function filterTasks(type,btn){
+  document.querySelectorAll('.filter-pill').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.task').forEach(t=>{t.style.display=(type==='all'||t.dataset.priority===type)?'':'none'});
 }
 
-checkboxes.forEach(cb => cb.addEventListener("change", update));
-
-// Toggle accordéon
-document.querySelectorAll(".task-header").forEach(h => {
-    h.addEventListener("click", (e) => {
-        if (e.target.classList.contains("task-checkbox")) return;
-        const task = h.closest(".task");
-        const content = h.nextElementSibling;
-        const isOpen = task.classList.contains("open");
-
-        // ferme tous
-        document.querySelectorAll(".task").forEach(t => {
-            t.classList.remove("open");
-            t.querySelector(".task-content").style.maxHeight = null;
-        });
-
-        if (!isOpen) {
-            task.classList.add("open");
-            content.style.maxHeight = content.scrollHeight + "px";
-        }
-    });
-});
-
-// Lecture vidéo au clic sur le placeholder
-document.querySelectorAll(".video-wrapper").forEach(wrapper => {
-    wrapper.addEventListener("click", () => {
-        const videoId = wrapper.dataset.videoId;
-        const iframe = document.createElement("iframe");
-        iframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1`;
-        iframe.className = "video-frame";
-        iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
-        iframe.allowFullscreen = true;
-        wrapper.innerHTML = "";
-        wrapper.appendChild(iframe);
-    });
-});
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3500);
+}
 </script>
 </body>
 </html>

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lexique — Ges'Tut</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style/styles.css">
+    <style>
+        .page-wrap { padding:28px 40px 40px; max-width:1100px; margin:0 auto; }
+        .lex-layout { display:grid; grid-template-columns:240px 1fr; gap:24px; }
+
+        /* INDEX ALPHA */
+        .alpha-sidebar { background:var(--surface); border-radius:var(--radius); border:1px solid var(--border); box-shadow:var(--shadow); padding:16px; height:fit-content; position:sticky; top:80px; }
+        .alpha-sidebar h3 { font-family:'Sora',sans-serif; font-weight:700; font-size:0.85em; color:var(--text); margin-bottom:12px; }
+        .alpha-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:4px; }
+        .alpha-btn { padding:6px; text-align:center; border-radius:8px; cursor:pointer; font-size:0.82em; font-weight:700; color:var(--muted); border:1px solid var(--border); background:var(--surface); font-family:'DM Sans',sans-serif; transition:all 0.18s; }
+        .alpha-btn:hover { background:var(--indigo-light); color:var(--indigo); }
+        .alpha-btn.active { background:var(--indigo); color:white; border-color:var(--indigo); }
+        .alpha-btn.empty { opacity:0.35; cursor:default; }
+        .alpha-btn.empty:hover { background:var(--surface); color:var(--muted); }
+
+        /* TERMES */
+        .lex-main { display:flex; flex-direction:column; gap:14px; }
+        .lex-toolbar { display:flex; gap:10px; }
+        .lex-search { flex:1; padding:10px 16px; border:1.5px solid var(--border); border-radius:12px; font-size:0.85em; font-family:'DM Sans',sans-serif; outline:none; transition:border-color 0.18s; }
+        .lex-search:focus { border-color:var(--indigo); }
+
+        .lex-section { margin-bottom:8px; }
+        .lex-letter { font-family:'Sora',sans-serif; font-weight:700; font-size:1.4em; color:var(--indigo); padding:4px 0 8px; border-bottom:2px solid var(--indigo-light); margin-bottom:12px; }
+
+        .term-card {
+            background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
+            overflow:hidden; box-shadow:var(--shadow); transition:box-shadow 0.2s;
+            margin-bottom:10px;
+        }
+        .term-card:hover { box-shadow:var(--shadow-md); }
+        .term-header { padding:14px 18px; display:flex; align-items:center; gap:10px; cursor:pointer; }
+        .term-name { flex:1; font-weight:700; font-size:0.9em; color:var(--text); }
+        .term-tag { font-size:0.7em; font-weight:600; padding:2px 8px; border-radius:12px; }
+        .tag-juridique { background:var(--indigo-light); color:var(--indigo-dark); }
+        .tag-financier { background:var(--green-light); color:#166534; }
+        .tag-medico    { background:var(--blue-light); color:#1d4ed8; }
+        .tag-admin     { background:var(--amber-light); color:#92400e; }
+        .term-chevron  { color:var(--muted); font-size:0.8em; transition:transform 0.25s; flex-shrink:0; }
+        .term-card.open .term-chevron { transform:rotate(180deg); }
+
+        .term-body { max-height:0; overflow:hidden; transition:max-height 0.35s ease; }
+        .term-content { padding:0 18px 18px; border-top:1px solid var(--border); }
+        .term-def { font-size:0.84em; color:var(--muted); line-height:1.7; margin-top:12px; }
+        .term-example { background:var(--indigo-light); border-radius:8px; padding:10px 12px; margin-top:10px; font-size:0.8em; color:var(--indigo-dark); line-height:1.5; }
+        .term-example strong { display:block; font-size:0.85em; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:4px; }
+        .term-links { display:flex; gap:6px; flex-wrap:wrap; margin-top:10px; }
+        .term-link { font-size:0.74em; font-weight:600; color:var(--indigo); text-decoration:none; border:1px solid var(--indigo-mid); padding:3px 10px; border-radius:20px; cursor:pointer; transition:all 0.18s; }
+        .term-link:hover { background:var(--indigo); color:white; }
+
+        .empty-state { text-align:center; padding:60px 20px; color:var(--muted); }
+        .empty-state .es-icon { font-size:3em; margin-bottom:12px; }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <a class="nav-brand" href="../index.html">
+        <div class="nav-logo">GT</div>
+        <span class="nav-brand-name">Ges'<span>Tut</span></span>
+    </a>
+    <div class="nav-links">
+        <a href="../index.html"><span class="nav-icon">🏠</span> Dashboard</a>
+        <a href="calendrier.html"><span class="nav-icon">📅</span> Calendrier</a>
+        <a href="cr.html"><span class="nav-icon">📊</span> Compte de gestion</a>
+        <a href="documents.html"><span class="nav-icon">📁</span> Documents</a>
+        <a href="lexique.html" class="active"><span class="nav-icon">📖</span> Lexique</a>
+        <a href="assistant.html"><span class="nav-icon">🤖</span> Assistant IA</a>
+    </div>
+    <div class="nav-right">
+        <div class="nav-notif-btn">🔔 <span class="nav-notif-badge">3</span></div>
+        <div class="nav-avatar">MW</div>
+    </div>
+</nav>
+
+<div class="page-wrap">
+    <div class="page-header">
+        <h2>Lexique juridique</h2>
+        <p>Comprendre la tutelle sans jargon — définitions claires et exemples concrets.</p>
+    </div>
+
+    <div class="lex-layout">
+
+        <!-- SIDEBAR ALPHA -->
+        <div class="alpha-sidebar">
+            <h3>Index alphabétique</h3>
+            <div class="alpha-grid" id="alpha-grid"></div>
+            <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--border)">
+                <h3>Filtrer par thème</h3>
+                <div style="display:flex;flex-direction:column;gap:4px">
+                    <button class="cat-item active" style="display:flex;align-items:center;gap:8px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:600;font-size:0.8em;color:var(--indigo);background:var(--indigo-light);padding:7px 10px;border-radius:8px" onclick="filterTheme('all',this)">Tous les termes</button>
+                    <button class="cat-item" style="display:flex;align-items:center;gap:8px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:0.8em;color:var(--muted);background:transparent;padding:7px 10px;border-radius:8px" onclick="filterTheme('juridique',this)">⚖️ Juridique</button>
+                    <button class="cat-item" style="display:flex;align-items:center;gap:8px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:0.8em;color:var(--muted);background:transparent;padding:7px 10px;border-radius:8px" onclick="filterTheme('financier',this)">💰 Financier</button>
+                    <button class="cat-item" style="display:flex;align-items:center;gap:8px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:0.8em;color:var(--muted);background:transparent;padding:7px 10px;border-radius:8px" onclick="filterTheme('admin',this)">📋 Administratif</button>
+                    <button class="cat-item" style="display:flex;align-items:center;gap:8px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:0.8em;color:var(--muted);background:transparent;padding:7px 10px;border-radius:8px" onclick="filterTheme('medico',this)">🏥 Médico-social</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TERMES -->
+        <div class="lex-main">
+            <div class="lex-toolbar">
+                <input type="text" class="lex-search" id="lex-search" placeholder="🔍 Rechercher un terme…" oninput="searchTerms(this.value)">
+            </div>
+            <div id="lex-content"></div>
+        </div>
+
+    </div>
+</div>
+
+<footer>© 2026 Ges'Tut — Plateforme d'accompagnement administratif</footer>
+<div class="toast" id="toast"></div>
+
+<script>
+const termes = [
+    { id:'aah', letter:'A', name:'AAH — Allocation aux Adultes Handicapés', tag:'financier', def:'Prestation versée par la CAF aux personnes en situation de handicap dont le taux est reconnu supérieur ou égal à 80% (ou entre 50 et 79% sous conditions). Le montant mensuel est de 971,37 € en 2026. Le tuteur doit la déclarer dans le compte de gestion.', example:'Marie perçoit l\'AAH mensuelle de 971 €. Ce revenu doit figurer dans la colonne Recettes du compte de gestion annuel.', links:['Compte de gestion', 'CAF'] },
+    { id:'apl', letter:'A', name:'APL — Aide Personnalisée au Logement', tag:'financier', def:'Aide au logement versée par la CAF pour réduire le montant du loyer. Le tuteur doit déclarer trimestriellement les ressources du pupille pour maintenir ce droit.', example:'L\'APL de Marie est de 350 €/mois. Elle peut être perdue si la déclaration trimestrielle CAF n\'est pas effectuée.', links:['Déclaration CAF', 'Calendrier'] },
+    { id:'cerfa', letter:'C', name:'Cerfa (formulaire)', tag:'admin', def:'Nom désignant les formulaires administratifs officiels de l\'État français (du Centre d\'Enregistrement et de Révision des Formulaires Administratifs). Chaque Cerfa est identifié par un numéro. Ex : Cerfa 15692 pour la demande MDPH, Cerfa 13878 pour le certificat médical.', example:'Pour renouveler le dossier MDPH de Marie, vous avez besoin du Cerfa 15692 (formulaire de demande) et du Cerfa 13878 (certificat médical à faire signer par son médecin).', links:['MDPH', 'Documents'] },
+    { id:'compte-gestion', letter:'C', name:'Compte de gestion annuel', tag:'juridique', def:'Document obligatoire que le tuteur doit remettre chaque année au greffe du tribunal judiciaire. Il récapitule toutes les recettes et dépenses du pupille sur l\'année civile, avec les justificatifs correspondants. Tout manquement peut entraîner des sanctions.', example:'Avant le 31 décembre, vous devez remettre au greffe le compte de gestion 2026 de Marie, récapitulant ses 18 450 € de recettes et 16 980 € de dépenses.', links:['Compte de gestion', 'Greffe'] },
+    { id:'curatelle', letter:'C', name:'Curatelle', tag:'juridique', def:'Mesure de protection juridique moins contraignante que la tutelle. Le curateur assiste la personne protégée dans ses actes importants (notamment bancaires) mais ne la représente pas. Il existe la curatelle simple et la curatelle renforcée.', example:'En curatelle renforcée, le curateur perçoit les revenus du pupille et règle les dépenses courantes. Il n\'a pas besoin de l\'accord du juge pour les actes courants.', links:['Tutelle', 'Juge des tutelles'] },
+    { id:'greffe', letter:'G', name:'Greffe du tribunal judiciaire', tag:'juridique', def:'Service administratif du tribunal qui reçoit et conserve les décisions de justice. C\'est au greffe que le tuteur remet son compte de gestion annuel et toute demande d\'autorisation pour les actes importants (vente immobilière, donation…).', example:'Le greffe du tribunal de Paris est le destinataire du compte de gestion annuel de Marie. Il peut demander des pièces complémentaires.', links:['Compte de gestion', 'Juge des tutelles'] },
+    { id:'habilitation', letter:'H', name:'Habilitation familiale', tag:'juridique', def:'Alternative à la tutelle permettant à un proche (conjoint, descendant, ascendant, frère ou sœur) d\'être désigné par le juge pour représenter une personne hors d\'état de manifester sa volonté. Plus souple et moins contraignante que la tutelle classique.', example:'L\'habilitation familiale peut être générale (tous actes) ou spéciale (actes déterminés). Le nombre de ces mesures augmente de 5%/an depuis 2016.', links:['Tutelle', 'Curatelle'] },
+    { id:'inventaire', letter:'I', name:'Inventaire patrimonial', tag:'juridique', def:'Document obligatoire à établir dans les 3 mois suivant l\'ouverture de la mesure de tutelle. Il liste tous les biens du pupille : comptes bancaires, biens immobiliers, assurances, dettes. Il doit être transmis au greffe.', example:'Lors de l\'ouverture de la tutelle de Marie en janvier 2023, vous avez eu jusqu\'en avril 2023 pour établir l\'inventaire de son patrimoine.', links:['Greffe', 'Compte de gestion'] },
+    { id:'juge-tutelles', letter:'J', name:'Juge des tutelles', tag:'juridique', def:'Magistrat du tribunal judiciaire chargé d\'ordonner et de contrôler les mesures de protection juridique (tutelle, curatelle, habilitation familiale). Il doit autoriser certains actes importants (vente immobilière, placement financier, donation).', example:'Pour vendre l\'appartement de Marie, vous devez d\'abord obtenir l\'autorisation écrite du juge des tutelles avant de signer tout compromis.', links:['Greffe', 'Tutelle'] },
+    { id:'mainlevee', letter:'M', name:'Mainlevée', tag:'juridique', def:'Décision du juge mettant fin à la mesure de protection juridique, lorsque l\'état de la personne s\'est suffisamment amélioré pour qu\'elle puisse à nouveau agir seule. Elle peut aussi intervenir au décès.', example:'Si l\'état de Marie s\'améliore significativement, son médecin peut rédiger un certificat permettant de demander la mainlevée de la tutelle au juge.', links:['Juge des tutelles', 'Tutelle'] },
+    { id:'mandataire', letter:'M', name:'Mandataire judiciaire à la protection des majeurs (MJPM)', tag:'juridique', def:'Professionnel mandaté par le juge pour exercer une mesure de protection à titre professionnel (tuteur, curateur ou mandataire spécial). Il peut être une personne physique ou une association agréée.', example:'Si aucun proche ne peut exercer la tutelle, le juge désigne un MJPM professionnel. Ges\'Tut préparera à terme une interface dédiée aux mandataires professionnels.', links:['Tutelle', 'Curatelle'] },
+    { id:'mdph', letter:'M', name:'MDPH — Maison Départementale des Personnes Handicapées', tag:'medico', def:'Guichet unique chargé d\'évaluer et d\'attribuer les droits des personnes handicapées : AAH, PCH, carte mobilité inclusion, RQTH, ESAT, orientation scolaire. Le dossier MDPH doit être renouvelé périodiquement.', example:'Le dossier MDPH de Marie lui ouvre droit à l\'AAH et à la carte mobilité. Il expire le 20 mai 2026 et doit être renouvelé avant cette date.', links:['AAH', 'Documents'] },
+    { id:'pch', letter:'P', name:'PCH — Prestation de Compensation du Handicap', tag:'financier', def:'Aide versée par le département pour financer les dépenses liées au handicap : aide humaine, aides techniques (fauteuil, prothèse), aménagement du logement, transport. Attribuée par la MDPH.', example:'Si Marie a besoin d\'une aide à domicile, la PCH peut financer tout ou partie de ce coût selon son plan de compensation.', links:['MDPH', 'AAH'] },
+    { id:'pupille', letter:'P', name:'Pupille / Personne protégée', tag:'juridique', def:'Terme désignant la personne faisant l\'objet de la mesure de protection juridique (tutelle, curatelle…). Sous tutelle, la personne protégée est représentée par le tuteur pour tous les actes de la vie civile.', example:'Marie Martin est la pupille dont Mathieu Willem est le tuteur. Tous les actes importants concernant Marie doivent être réalisés par Mathieu en son nom.', links:['Tutelle', 'Juge des tutelles'] },
+    { id:'rsa', letter:'R', name:'RSA — Revenu de Solidarité Active', tag:'financier', def:'Allocation versée par la CAF pour garantir un revenu minimum. Le tuteur peut percevoir le RSA pour le compte du pupille. Sa déclaration trimestrielle est obligatoire sous peine de suspension.', example:'Si Marie perçoit le RSA, la déclaration trimestrielle CAF est doublement importante : elle conditionne à la fois l\'APL et le RSA.', links:['AAH', 'Déclaration CAF'] },
+    { id:'subrogé', letter:'S', name:'Subrogé tuteur', tag:'juridique', def:'Personne désignée par le juge des tutelles pour surveiller la gestion du tuteur et représenter le pupille lorsque ses intérêts sont opposés à ceux du tuteur. Il peut aussi contrôler et valider le compte de gestion.', example:'Si votre frère est désigné subrogé tuteur, il doit vérifier et cosigner le compte de gestion annuel de Marie avant sa remise au greffe.', links:['Juge des tutelles', 'Compte de gestion'] },
+    { id:'tutelle', letter:'T', name:'Tutelle', tag:'juridique', def:'Mesure de protection juridique la plus contraignante, ordonnée par le juge des tutelles. Le tuteur se substitue entièrement à la personne protégée pour les actes de la vie civile. Durée : 5 à 10 ans, renouvelable. Concerne environ 250 000 personnes en France.', example:'Mathieu est le tuteur de Marie : il gère ses comptes, reçoit ses revenus, règle ses dépenses et signe tous les contrats en son nom.', links:['Curatelle', 'Juge des tutelles', 'Compte de gestion'] },
+];
+
+let currentFilter = 'all';
+let searchQuery = '';
+
+function renderAlpha() {
+    const letters = [...new Set(termes.map(t => t.letter))].sort();
+    const allLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+    const grid = document.getElementById('alpha-grid');
+    grid.innerHTML = allLetters.map(l => {
+        const hasTerms = letters.includes(l);
+        return `<button class="alpha-btn ${hasTerms?'':'empty'}" onclick="${hasTerms?`scrollToLetter('${l}')`:'void(0)'}">${l}</button>`;
+    }).join('');
+}
+
+function scrollToLetter(l) {
+    const el = document.getElementById('section-' + l);
+    if (el) el.scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+function filterTheme(theme, btn) {
+    document.querySelectorAll('.cat-item').forEach(b => { b.style.background='transparent'; b.style.color='var(--muted)'; });
+    btn.style.background = 'var(--indigo-light)';
+    btn.style.color = 'var(--indigo)';
+    currentFilter = theme;
+    render();
+}
+
+function searchTerms(q) { searchQuery = q; render(); }
+
+function render() {
+    let filtered = termes;
+    if (currentFilter !== 'all') filtered = filtered.filter(t => t.tag === currentFilter);
+    if (searchQuery) filtered = filtered.filter(t => t.name.toLowerCase().includes(searchQuery.toLowerCase()) || t.def.toLowerCase().includes(searchQuery.toLowerCase()));
+
+    const grouped = {};
+    filtered.forEach(t => {
+        if (!grouped[t.letter]) grouped[t.letter] = [];
+        grouped[t.letter].push(t);
+    });
+
+    const tagClassMap = { juridique:'tag-juridique', financier:'tag-financier', admin:'tag-admin', medico:'tag-medico' };
+    const tagLabelMap = { juridique:'Juridique', financier:'Financier', admin:'Administratif', medico:'Médico-social' };
+
+    const content = document.getElementById('lex-content');
+    if (Object.keys(grouped).length === 0) {
+        content.innerHTML = '<div class="empty-state"><div class="es-icon">🔍</div><p>Aucun terme ne correspond à votre recherche.</p></div>';
+        return;
+    }
+
+    content.innerHTML = Object.keys(grouped).sort().map(letter => `
+        <div class="lex-section" id="section-${letter}">
+            <div class="lex-letter">${letter}</div>
+            ${grouped[letter].map(t => `
+                <div class="term-card" id="term-${t.id}">
+                    <div class="term-header" onclick="toggleTerm('term-${t.id}')">
+                        <span class="term-name">${t.name}</span>
+                        <span class="term-tag ${tagClassMap[t.tag]}">${tagLabelMap[t.tag]}</span>
+                        <span class="term-chevron">▼</span>
+                    </div>
+                    <div class="term-body">
+                        <div class="term-content">
+                            <p class="term-def">${t.def}</p>
+                            <div class="term-example">
+                                <strong>💡 Exemple concret</strong>
+                                ${t.example}
+                            </div>
+                            <div class="term-links">
+                                ${t.links.map(l => `<span class="term-link" onclick="showToast('→ ${l}')">${l}</span>`).join('')}
+                            </div>
+                        </div>
+                    </div>
+                </div>`).join('')}
+        </div>`).join('');
+}
+
+function toggleTerm(id) {
+    const card = document.getElementById(id);
+    const body = card.querySelector('.term-body');
+    const isOpen = card.classList.contains('open');
+    document.querySelectorAll('.term-card').forEach(c => {
+        c.classList.remove('open');
+        c.querySelector('.term-body').style.maxHeight = null;
+    });
+    if (!isOpen) {
+        card.classList.add('open');
+        body.style.maxHeight = body.scrollHeight + 'px';
+    }
+}
+
+function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+renderAlpha();
+render();
+</script>
+</body>
+</html>
